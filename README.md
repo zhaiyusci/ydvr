@@ -1,7 +1,7 @@
 # ydvr
 A nuclear motion quantum mechaics solver writen in C++.
 
-This project is a set of toy codes written in several sundays by Yu Zhai.
+This project is a set of toy codes written in several sundays by [Yu Zhai](http://www.zhaiyusci.net/).
 
 The input is in xml format and no manual is availble because it cannot be simpler.  Just follow the `dvr.xml` as a sample.
 
