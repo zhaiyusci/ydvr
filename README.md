@@ -1,5 +1,5 @@
 # ydvr
-A nuclear motion quantum mechaics solver writen in C++.
+A nuclear motion quantum mechaics solver written in C++.
 
 This project is a set of toy codes written in several sundays by [Yu Zhai](http://www.zhaiyusci.net/).
 
