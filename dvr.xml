@@ -2,7 +2,7 @@
 <dvrinput>
   <title> CO </title>
   <primitive>100</primitive>
-  <podvr>5</podvr>
+  <podvr>10</podvr>
   <mass massunit="dalton"> 6.856208638000723</mass>
   <a lengthunit="bohr">1.33</a>
   <b lengthunit="bohr">4.3</b>
