@@ -45,6 +45,7 @@ int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, M
   // For i!=j ... 
   for(int i=1; i!=N; ++i){
     for(int j=1;j!=i; ++j){
+      /*
       T_DVR(i-1,j-1)=1.0/(2*m)
         *pow(-1,i-j)/pow(b-a,2)
         *M_PI*M_PI/2.0
@@ -52,6 +53,8 @@ int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, M
             1/pow(sin(M_PI*(i-j)/(2*N)),2)
             -1/pow(sin(M_PI*(i+j)/(2*N)),2)
          );
+         */
+      T_DVR(i-1,j-1)=1.0/(2*m*pow(deltax,2))*pow(-1,(i-j))*2/pow((i-j),2);
       T_DVR(j-1,i-1)=T_DVR(i-1,j-1);
       H_DVR(i-1,j-1)=T_DVR(i-1,j-1);
       H_DVR(j-1,i-1)=T_DVR(j-1,i-1);
@@ -59,6 +62,7 @@ int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, M
   }
   // For i==j
   for(int i=1; i!=N; ++i){
+    /*
     T_DVR(i-1,i-1)=1.0/(2*m)
       *1.0/pow(b-a,2)
       *M_PI*M_PI/2.0
@@ -66,6 +70,8 @@ int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, M
           (2.0*N*N+1.0)/3.0
           -1/pow(sin(M_PI*i/N),2)
        );
+       */
+    T_DVR(i-1,i-1)=1.0/(2*m*pow(deltax,2))*pow(M_PI,2)/3.0;
     H_DVR(i-1,i-1)=T_DVR(i-1,i-1)+potential.calc(x(i-1));
     // cerr << "sincdvr>> " << potential.calc(x(i-1)) << endl;
   }
