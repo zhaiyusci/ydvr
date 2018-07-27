@@ -1,8 +1,11 @@
 objects=sincdvr.o podvr.o mathtools.o tinyxml2.o
-CCFLAG= -Ieigen -fopenmp -Wall --std=c++14
-FFLAG= -fopenmp -Wall
-CXX=g++
-F77=gfortran
+# # Using LLVM
+# CCFLAG= -Ieigen -fopenmp -Wall --std=c++14
+# CXX=clang++-6.0
+
+# Using GCC
+CCFLAG= -Ieigen -fopenmp -Wall --std=c++14 
+CXX=g++-5
 
 all: ydvr.x
 
