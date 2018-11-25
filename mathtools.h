@@ -16,25 +16,22 @@
 #include<cstring>
 #include<cmath>
 
-using namespace Eigen;
-using namespace std;
-
-extern double mel(const int& , const VectorXd& , const VectorXd& , const VectorXd& );
+extern double mel(const int& , const Eigen::VectorXd& , const Eigen::VectorXd& , const Eigen::VectorXd& );
 
 class DoubleFunction1d{
   public:
     virtual double calc(const double&) const =0;
-
 };
+
 class CubicSpline: public DoubleFunction1d {
   private:
-    VectorXd x_;  
-    VectorXd y_;
-    VectorXd m_; // tangent value on each point
+    Eigen::VectorXd x_;  
+    Eigen::VectorXd y_;
+    Eigen::VectorXd m_; // tangent value on each point
     int N_;    // grid number
   public:
     double calc(const double& )const ;
-    CubicSpline(const int&, const VectorXd&, const VectorXd&, const double&, const double&);
+    CubicSpline(const int&, const Eigen::VectorXd&, const Eigen::VectorXd&, const double&, const double&);
 };
 
 

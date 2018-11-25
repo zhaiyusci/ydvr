@@ -10,9 +10,7 @@
 #define DVR_H
 #include"mathtools.h"
 
-using namespace Eigen;
-
-extern int sinc_dvr_1d(double , int , double , double , VectorXd&, VectorXd&, MatrixXd&, MatrixXd&,const DoubleFunction1d&);
+extern int sinc_dvr_1d(double , int , double , double , Eigen::VectorXd&, Eigen::VectorXd&, Eigen::MatrixXd&, Eigen::MatrixXd&,const DoubleFunction1d&);
 // extern double potential(double);
 
 #endif 

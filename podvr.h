@@ -11,8 +11,6 @@
 #include"mathtools.h"
 #include"sincdvr.h"
 
-using namespace Eigen;
-
-extern int sinc_podvr_1d(double , int ,int , double , double , VectorXd&, VectorXd&, MatrixXd&, MatrixXd&, const DoubleFunction1d&, bool);
+extern int sinc_podvr_1d(double , int ,int , double , double , Eigen::VectorXd&, Eigen::VectorXd&, Eigen::MatrixXd&, Eigen::MatrixXd&, const DoubleFunction1d&, bool);
 
 #endif 
