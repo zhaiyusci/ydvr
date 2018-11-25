@@ -16,10 +16,10 @@ $(objects): %.o : %.cc %.h
 	$(CXX) -o $@ -c $(CCFLAG) $< 
 
 ydvr.o: ydvr.cc mathtools.o
-	$(CXX) -c -o $@ $(CCFLAG) ydvr.cc
+	$(CXX) -c -o $@ $(CCFLAG) ydvr.cc -pg
 
 ydvr.x: ydvr.o $(objects)
-	$(CXX) -o $@ $(CCFLAG) ydvr.o $(objects)
+	$(CXX) -o $@ $(CCFLAG) ydvr.o $(objects) -pg
 
 .PHONY: clean all
 
