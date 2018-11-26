@@ -1,4 +1,4 @@
-objects=sincdvr.o podvr.o mathtools.o tinyxml2.o
+objects=sincdvr.o podvr.o mathtools.o tinyxml2.o molecule.o
 # # Using LLVM
 # CCFLAG= -Ieigen -fopenmp -Wall --std=c++14
 # CXX=clang++-6.0

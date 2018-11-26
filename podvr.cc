@@ -20,8 +20,8 @@ int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, Vec
   VectorXd pri_x; // "pri" here means primitive in 
   VectorXd pri_E;
   MatrixXd pri_wf;
-  MatrixXd pri_H0_energy;
-  sinc_dvr_1d(m, N, a, b, pri_x, pri_E, pri_wf, pri_H0_energy, potential);
+  MatrixXd pri_T_energy;
+  sinc_dvr_1d(m, N, a, b, pri_x, pri_E, pri_wf, pri_T_energy, potential);
 
   MatrixXd X(NPO,NPO);
   for(int i=0; i!=NPO; ++i){
@@ -33,7 +33,7 @@ int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, Vec
 
   SelfAdjointEigenSolver<MatrixXd> X_es(X);
   x=X_es.eigenvalues();
-  MatrixXd podvrbasis=X_es.eigenvectors();
+  MatrixXd podvrbasis=X_es.eigenvectors(); // we name it as "podvrbasis" and it is true, but the value here is the localized function on energy basis.
 
   // Well... at this state you may find this just OK because the way we transform energy 
   // representation to PODVR representation is straight forward...
@@ -58,7 +58,7 @@ int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, Vec
 
 
   if(!perturbation){
-    MatrixXd T_energy=pri_H0_energy.topLeftCorner(NPO,NPO); // on energy basis
+    MatrixXd T_energy=pri_T_energy.topLeftCorner(NPO,NPO); // on energy basis
     MatrixXd T_PODVR= podvrbasis.transpose()*T_energy*podvrbasis; // on PODVR basis
     MatrixXd H_PODVR=T_PODVR;
     for(int i=0; i!=NPO; ++i) H_PODVR(i,i)+=potential.calc(x(i)); // The potential is recalculated
