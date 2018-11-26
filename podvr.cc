@@ -11,12 +11,12 @@
 using namespace Eigen;
 using namespace std;
 
-int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, VectorXd& E, MatrixXd& wf, MatrixXd& H0_PODVR, const DoubleFunction1d& potential, bool perturbation){
+int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, VectorXd& E, MatrixXd& wf, MatrixXd& H_PODVR, const DoubleFunction1d& potential){
   // Pontential optimization part follow Chem. Phys. Lett. 190, 225 (1992)
   x.resize(NPO);
   E.resize(NPO);
   wf.resize(NPO,NPO);
-  H0_PODVR.resize(NPO,NPO);
+  H_PODVR.resize(NPO,NPO);
   VectorXd pri_x; // "pri" here means primitive in 
   VectorXd pri_E;
   MatrixXd pri_wf;
@@ -47,26 +47,12 @@ int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, Vec
   }
 
   MatrixXd H_energy=MatrixXd::Zero(NPO,NPO);
-  if(perturbation){
-    for(int i=0; i!=NPO; ++i){
-      H_energy(i,i)=pri_E(i); // on energy basis
-      E(i)=pri_E(i);
-    }
-    H0_PODVR= podvrbasis.transpose()*H_energy*podvrbasis; // on PODVR basis
-    wf=podvrbasis.transpose();
+  for(int i=0; i!=NPO; ++i){
+    H_energy(i,i)=pri_E(i); // on energy basis
+    E(i)=pri_E(i);
   }
-
-
-  if(!perturbation){
-    MatrixXd T_energy=pri_T_energy.topLeftCorner(NPO,NPO); // on energy basis
-    MatrixXd T_PODVR= podvrbasis.transpose()*T_energy*podvrbasis; // on PODVR basis
-    MatrixXd H_PODVR=T_PODVR;
-    for(int i=0; i!=NPO; ++i) H_PODVR(i,i)+=potential.calc(x(i)); // The potential is recalculated
-    SelfAdjointEigenSolver<MatrixXd> H_es(H_PODVR);
-    E=H_es.eigenvalues();
-    wf=H_es.eigenvectors();
-    H0_PODVR= podvrbasis.transpose()*T_energy*podvrbasis; // on PODVR basis
-  }
+  H_PODVR= podvrbasis.transpose()*H_energy*podvrbasis; // on PODVR basis
+  wf=podvrbasis.transpose();
 
   return 0;
 }

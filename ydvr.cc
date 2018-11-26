@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
   MatrixXd T;
 
 
-  sinc_podvr_1d(m,pri_n,po_n, a, b, grid, E, wf, T, spl, true);
+  sinc_podvr_1d(m,pri_n,po_n, a, b, grid, E, wf, T, spl);
 
   cout <<"grid in angstrom"<<endl;
   cout <<grid*0.529177249<<endl;
