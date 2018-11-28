@@ -15,23 +15,42 @@
 #include<Eigen/Eigenvalues>
 #include<cstring>
 #include<cmath>
+#include<vector>
 
-extern double mel(const int& , const Eigen::VectorXd& , const Eigen::VectorXd& , const Eigen::VectorXd& );
+extern double mel(int , const Eigen::VectorXd& , const Eigen::VectorXd& , const Eigen::VectorXd& );
 
 class DoubleFunction1d{
   public:
-    virtual double calc(const double&) const =0;
+    virtual double calc(double) const =0;
 };
 
-class CubicSpline: public DoubleFunction1d {
+class DoubleFunctionmd;
+
+class CuttedPotential1d: public DoubleFunction1d{
+  private:
+    Eigen::VectorXd xe_;
+    Eigen::VectorXd deltax_;
+    DoubleFunctionmd* funcmd_;
+  public:
+    double calc(double) const;
+    CuttedPotential1d(const Eigen::VectorXd&, const Eigen::VectorXd&, DoubleFunctionmd* funcmd_);
+};
+
+class DoubleFunctionmd{
+  public:
+    virtual double calc(const Eigen::VectorXd&) const =0;
+    CuttedPotential1d linearcut(const Eigen::VectorXd&, const Eigen::VectorXd&);
+};
+
+class CubicSpline1d: public DoubleFunction1d {
   private:
     Eigen::VectorXd x_;  
     Eigen::VectorXd y_;
     Eigen::VectorXd m_; // tangent value on each point
     int N_;    // grid number
   public:
-    double calc(const double& )const ;
-    CubicSpline(const int&, const Eigen::VectorXd&, const Eigen::VectorXd&, const double&, const double&);
+    double calc(double)const ;
+    CubicSpline1d(int, const Eigen::VectorXd&, const Eigen::VectorXd&, double, double);
 };
 
 

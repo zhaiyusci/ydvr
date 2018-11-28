@@ -9,7 +9,7 @@
 #include"mathtools.h"
 using namespace Eigen;
 using namespace std;
-double mel(const int& N, const VectorXd& bra, const VectorXd& op, const VectorXd& ket){
+double mel(int N, const VectorXd& bra, const VectorXd& op, const VectorXd& ket){
   double res=0.0;
   res=0.0;
   for (int i =0; i!=N ;++i){
@@ -19,7 +19,7 @@ double mel(const int& N, const VectorXd& bra, const VectorXd& op, const VectorXd
 }
 
 
-CubicSpline::CubicSpline(const int& N, const VectorXd& x, const VectorXd& y, const double& mi, const double& mf){
+CubicSpline1d::CubicSpline1d(int N, const VectorXd& x, const VectorXd& y, double mi, double mf){
   N_=N;
   x_=x; y_=y; m_=VectorXd::Zero(N);
   for (int i =1; i!= N-1; ++i){
@@ -41,7 +41,7 @@ CubicSpline::CubicSpline(const int& N, const VectorXd& x, const VectorXd& y, con
   // return 0;
 // }
 
-double CubicSpline::calc(const double& x) const{
+double CubicSpline1d::calc(double x) const{
 
   // find the right interval using bisec method...
   int posi, posf, posm;
@@ -73,4 +73,28 @@ double CubicSpline::calc(const double& x) const{
     +h01*y_(posf)
     +h11*(x_(posf)-x_(posi))*m_(posf);
 }
+
+CuttedPotential1d DoubleFunctionmd::linearcut(const VectorXd& xe, const VectorXd& deltax){
+  CuttedPotential1d func1d(xe, deltax, this);
+  return func1d;
+}
+
+CuttedPotential1d::CuttedPotential1d(const Eigen::VectorXd& xe, const Eigen::VectorXd& deltax, DoubleFunctionmd* funcmd){
+  xe_=xe;
+  deltax_=deltax;
+  funcmd_=funcmd;
+}
+
+double CuttedPotential1d::calc(double x)const{
+  VectorXd xx=xe_+x*deltax_;
+  return funcmd_->calc(xx);
+}
+
+
+
+
+
+
+
+
 

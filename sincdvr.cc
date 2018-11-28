@@ -11,7 +11,7 @@
 using namespace Eigen;
 using namespace std;
 
-int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, MatrixXd &wf_DVR, MatrixXd &T_energy, const DoubleFunction1d& potential){ 
+int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, MatrixXd &wf_sincDVR, MatrixXd &T_energy, const DoubleFunction1d& potential){ 
   //follow J. Chem. Phys. 96, 1982 (1992) Appendix A
   try{
     if (N<3){
@@ -28,59 +28,41 @@ int sinc_dvr_1d(double m, int N, double a, double b, VectorXd &x, VectorXd &E, M
   // (N-1) DVR points, and N intervals
   x.resize(N-1); // DVR point
   E.resize(N-1); // Final energy
-  wf_DVR.resize(N-1,N-1); // Final wave function
-  MatrixXd T_DVR(N-1,N-1); // Kinetic matrix in DVR representation
+  wf_sincDVR.resize(N-1,N-1); // Final wave function
+  MatrixXd T_sincDVR(N-1,N-1); // Kinetic matrix in DVR representation
 
   double deltax=(b-a)/N; 
   for(int i=1;i!=N;++i){ 
     // I try to follow the way they write the paper, however, you know it is C++
-    // here the x(i-1) thing is x(i) in their paper and the reason is that in C-like language the 
+    // here the x(i-1) thing is x(i) in their paper 
+    // and the reason is that in C-like language the 
     // index start from 0
     // ... so here I only change the index
     x(i-1)=a+deltax*i;
   }
 
-  MatrixXd H_DVR(N-1,N-1); //Hamiltonian in DVR ...
+  MatrixXd H_sincDVR(N-1,N-1); //Hamiltonian in DVR ...
   // in the paper it is i' but I think using j is a better idea
   // For i!=j ... 
   for(int i=1; i!=N; ++i){
     for(int j=1;j!=i; ++j){
-      /*
-      T_DVR(i-1,j-1)=1.0/(2*m)
-        *pow(-1,i-j)/pow(b-a,2)
-        *M_PI*M_PI/2.0
-        *(
-            1/pow(sin(M_PI*(i-j)/(2*N)),2)
-            -1/pow(sin(M_PI*(i+j)/(2*N)),2)
-         );
-         */
-      T_DVR(i-1,j-1)=1.0/(2*m*pow(deltax,2))*pow(-1,(i-j))*2/pow((i-j),2);
-      T_DVR(j-1,i-1)=T_DVR(i-1,j-1);
-      H_DVR(i-1,j-1)=T_DVR(i-1,j-1);
-      H_DVR(j-1,i-1)=T_DVR(j-1,i-1);
+      T_sincDVR(i-1,j-1)=1.0/(2*m*pow(deltax,2))*pow(-1,(i-j))*2/pow((i-j),2);
+      T_sincDVR(j-1,i-1)=T_sincDVR(i-1,j-1);
+      H_sincDVR(i-1,j-1)=T_sincDVR(i-1,j-1);
+      H_sincDVR(j-1,i-1)=T_sincDVR(j-1,i-1);
     }
   }
   // For i==j
   for(int i=1; i!=N; ++i){
-    /*
-    T_DVR(i-1,i-1)=1.0/(2*m)
-      *1.0/pow(b-a,2)
-      *M_PI*M_PI/2.0
-      *(
-          (2.0*N*N+1.0)/3.0
-          -1/pow(sin(M_PI*i/N),2)
-       );
-       */
-    T_DVR(i-1,i-1)=1.0/(2*m*pow(deltax,2))*pow(M_PI,2)/3.0;
-    H_DVR(i-1,i-1)=T_DVR(i-1,i-1)+potential.calc(x(i-1));
-    // cerr << "sincdvr>> " << potential.calc(x(i-1)) << endl;
+    T_sincDVR(i-1,i-1)=1.0/(2*m*pow(deltax,2))*pow(M_PI,2)/3.0;
+    H_sincDVR(i-1,i-1)=T_sincDVR(i-1,i-1)+potential.calc(x(i-1));
   }
 
-  SelfAdjointEigenSolver<MatrixXd> H_es(H_DVR);
+  SelfAdjointEigenSolver<MatrixXd> H_es(H_sincDVR);
 
   E=H_es.eigenvalues();
-  wf_DVR=H_es.eigenvectors();
-  T_energy=wf_DVR.transpose()*T_DVR*wf_DVR;
+  wf_sincDVR=H_es.eigenvectors();
+  T_energy=wf_sincDVR.transpose()*T_sincDVR*wf_sincDVR;
 
   return 0;
 } 

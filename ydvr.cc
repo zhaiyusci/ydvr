@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
   VectorXd x;
   VectorXd y;
   load_input_file(argv[1], pri_n, po_n, pot_n, m,a,b, x, y);
-  CubicSpline spl(pot_n, x, y, 1.0e31, 1.0e31);
+  CubicSpline1d spl(pot_n, x, y, 1.0e31, 1.0e31);
   // cout << "Grids"<<endl;
   // for(int i=0; i!=pot_n; ++i){
     // cout <<setw(20) <<x(i)<<"  "<< y(i) << "  " << spl.calc(x(i))<< endl;
