@@ -12,6 +12,7 @@
 #include"sincdvr.h"
 #include"podvr.h"
 #include<vector>
+#include"mdindex/mdindex.h"
 
 extern int sinc_podvr_md(double , int ,int , double , double , Eigen::VectorXd&, Eigen::VectorXd&, Eigen::MatrixXd&, Eigen::MatrixXd&, const DoubleFunction1d&, bool);
 

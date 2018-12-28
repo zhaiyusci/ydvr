@@ -24,7 +24,7 @@ int sinc_podvr_md(const vector<double>& m, const vector<int>& N, const vector<in
   // 1. Perform (size of m) 1d podvr.  
   for(int i=0; i!=m.size(); ++i){
     sinc_podvr_1d(m[i], N[i], NPO[i], a[i], b[i], x[i], Ei[i], 
-        wfi[i], MatrixXd& Hi_PODVR, potential);
+        wfi[i], MatrixXd& Hi_PODVR[i], potential[i]);
     cout << "========================================================================"<<endl;
     cout << "Dimension " << i << ":"<<endl;
     cout << "PODVR grids (in bohr):"<<endl;
@@ -38,8 +38,43 @@ int sinc_podvr_md(const vector<double>& m, const vector<int>& N, const vector<in
   }
 
   // Construct the md hamiltonian on PODVR grids
-  // 1. Calcu
+  // 1. Calculate the size of hamiltonian, indices, etc.
+  mdindex mdindexi(NPO);
+  mdindex mdindexj(mdindexi);
+  MatrixXd H_energy=MatrixXd::Zero(mdindexi.max(),mdindexj.max());
 
+  // 2. Calculate the 'raw' hamiltonian without high-order cross term
+  // The value should be 
+  // <i1|<i2|<i3|H1+H2+H3|j1>|j2>|j3>
+  //=<i1|H1|j1><i2|j2><i3|j3>+<i2|H2|j2><i1|j1><i3|j3>+<i3|H3|j3><i1|j1><i2|j2>
+  for(mdindexi.reset(); mdindexi.overflow()==0; ++mdindexi){
+    for(mdindexj.reset(); mdindexj.overflow()==0; ++mdindexj){
+      for(int i =0; i!=m.size(); ++i){
+        int delta=1;
+        for(int j =0; j!=m.size(); ++j){
+          if(j!=i){
+            if(mdindexi.current(j)!=mdindexj.current(j)){
+              delta=0;
+              break;
+            }
+          }
+        }
+        H_PODVR(mdindexi.current(),mdindexj.current())
+          +=Hi_PODVR[i](mdindexi.current(i), mdindexj.current(i))*delta;
+      }
+    }
+  }
+
+  // 3. Add cross term potential to hamiltonian
+  // Only diagonal elements has value
+  for(mdindexi.reset(); mdindexi.overflow()==0; ++mdindexi){
+    H_PODVR(mdindexi.current(),mdindexi.current())
+      +=potential();
+    for(int i=0; i!=m.size(); ++i){
+    H_PODVR(mdindexi.current(),mdindexi.current())
+      -=potential();
+    }
+  }
 
 
   return 0;

@@ -1,0 +1,3 @@
+[submodule "mdindex"]
+	path = mdindex
+	url = git@github.com:zhaiyusci/mdindex.git
