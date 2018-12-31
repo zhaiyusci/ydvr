@@ -17,7 +17,7 @@
 #include<cmath>
 #include<vector>
 
-extern double mel(int , const Eigen::VectorXd& , const Eigen::VectorXd& , const Eigen::VectorXd& );
+extern double mel(const int, const Eigen::VectorXd& , const Eigen::VectorXd& , const Eigen::VectorXd& );
 
 class DoubleFunction1d{
   public:

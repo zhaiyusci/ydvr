@@ -76,6 +76,11 @@ int sinc_podvr_md(const vector<double>& m, const vector<int>& N, const vector<in
     }
   }
 
+  // 4. Diagonalization
+  SelfAdjointEigenSolver<MatrixXd> H_es(H_PODVR);
+  E=H_es.eigenvalues();
+  wf=H_es.eigenvectors();
+
 
   return 0;
 }

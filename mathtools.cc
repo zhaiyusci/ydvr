@@ -9,11 +9,11 @@
 #include"mathtools.h"
 using namespace Eigen;
 using namespace std;
-double mel(int N, const VectorXd& bra, const VectorXd& op, const VectorXd& ket){
+double mel(const int power, const VectorXd& bra, const VectorXd& op, const VectorXd& ket){
   double res=0.0;
   res=0.0;
-  for (int i =0; i!=N ;++i){
-    res+=bra(i)*op(i)*ket(i);
+  for (int i =0; i!=bra.size() ;++i){
+    res+=bra(i)*pow(op(i),power)*ket(i);
   }
   return res;
 }

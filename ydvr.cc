@@ -16,6 +16,12 @@ using namespace std;
 using namespace tinyxml2;
 
 int main(int argc, char *argv[]){
+  cout <<endl;
+  cout <<"                              y D V R                               "<<endl;
+  cout <<endl;
+  cout <<endl;
+  cout <<"                 Auther: Yu Zhai <me@zhaiyusci.net>                 "<<endl;
+  cout <<endl;
   cout.setf(ios::fixed, ios::floatfield);
   cout << std::setprecision(8);
   extern int load_input_file(const char*, int&, int&, int&, double& ,double&, double&, VectorXd& , VectorXd&) ;
@@ -26,14 +32,6 @@ int main(int argc, char *argv[]){
   VectorXd y;
   load_input_file(argv[1], pri_n, po_n, pot_n, m,a,b, x, y);
   CubicSpline1d spl(pot_n, x, y, 1.0e31, 1.0e31);
-  // cout << "Grids"<<endl;
-  // for(int i=0; i!=pot_n; ++i){
-    // cout <<setw(20) <<x(i)<<"  "<< y(i) << "  " << spl.calc(x(i))<< endl;
-  // }
-  // cout << "Curve"<<endl;
-  // for(double xx=0.6; xx<=2.5; xx=xx+0.001){
-    // cout <<setw(20) <<xx<<"  "<< spl.calc(xx)<< endl;
-  // }
 
   VectorXd grid;
   VectorXd E;
@@ -43,13 +41,6 @@ int main(int argc, char *argv[]){
 
   sinc_podvr_1d(m,pri_n,po_n, a, b, grid, E, wf, T, spl);
 
-  cout <<"grid in angstrom"<<endl;
-  cout <<grid*0.529177249<<endl;
-
-  cout <<"E in cm-1"<<endl;
-  cout <<E*219474.6313702<<endl;
-  cout <<"wf"<<endl;
-  cout <<wf<<endl;
   return 0;
 }
 
@@ -59,7 +50,7 @@ int load_input_file(const char* fn, int& pri_DVR_N, int& PODVR_N, int& pot_N, do
   input.LoadFile(fn);
   XMLNode* xmlroot=input.FirstChildElement("dvrinput");
   const char* title=xmlroot->FirstChildElement("title")->GetText();
-  cout << title << endl;
+  cout << "Job title: "<< title << endl;
   const char* potential=xmlroot->FirstChildElement("potential")->GetText();
   // cout << potential << endl;
   const char* potential_length_unit=xmlroot->FirstChildElement("potential")->Attribute("lengthunit");
