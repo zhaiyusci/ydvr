@@ -1,4 +1,4 @@
-**To get the code, go to release page on github to get the stable version (v1.0.0).**  Source code in the master branch can be experimental.
+**To get the code, go to release page on github to get the stable version (v1.1.0).**  Source code in the master branch can be experimental.
 
 # yDVR
 
