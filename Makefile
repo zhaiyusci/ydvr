@@ -5,7 +5,7 @@ objects=sincdvr.o podvr.o mathtools.o tinyxml2.o
 
 # Using GCC
 CCFLAG= -Ieigen -fopenmp -Wall --std=c++14 
-CXX=g++-5
+CXX=g++-8
 
 all: ydvr.x
 
