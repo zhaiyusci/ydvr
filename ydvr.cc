@@ -21,6 +21,19 @@ int main(int argc, char *argv[]){
   cout <<endl;
   cout <<endl;
   cout <<"                 Auther: Yu Zhai <me@zhaiyusci.net>                 "<<endl;
+  cout <<"                 https://github.com/zhaiyusci/ydvr                  "<<endl;
+  cout <<endl;
+  cout <<"Cite the codes as:"<<endl;
+  cout <<"  Yu Zhai, yDVR: A nuclear motion quantum mechanics solver written in C++,"<<endl;
+  cout <<"      v1.1.0, (2019) https://github.com/zhaiyusci/ydvr"<<endl;
+
+
+  cout <<endl;
+  cout 
+    <<R"(    This Source Code Form is subject to the terms of the Mozilla Public License 
+v. 2.0.  If a copy of the MPL was not distributed with this file, You can obtain 
+one at http://mozilla.org/MPL/2.0/.)" 
+    << endl;
   cout <<endl;
   cout.setf(ios::fixed, ios::floatfield);
   cout << std::setprecision(8);
