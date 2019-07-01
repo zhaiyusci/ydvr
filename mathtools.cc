@@ -55,8 +55,16 @@ double CubicSpline1d::calc(double x) const{
     }
   }else{
     // if x is out of range...  warning... but do not stop
-    (x<=x_(0) || x>x_(N_-1))? (cerr<< "Warning: Cubic spline: x out of range, x="<< x << ", min(x)=" << x_(0) <<", max(x)="<<x_(N_-1) << endl, 1==1) : (1==1);
-    (x<=x_(1))? (posi=0, posf=1 ):(posi=N_-2, posf=N_-1);
+    if(x<=x_(0) || x>x_(N_-1)) { 
+      cerr<< "Warning: Cubic spline: x out of range, x="<< x << ", min(x)=" << x_(0) <<", max(x)="<<x_(N_-1) << endl; 
+    }
+    if(x<=x_(1)) { 
+      posi=0; 
+      posf=1; 
+    }else{ 
+      posi=N_-2; 
+      posf=N_-1;
+    }
   }
   // cerr<< posi <<"  "<< posf <<endl;
 

@@ -1,4 +1,4 @@
-**To get the code, go to release page on github to get the stable version (v1.1.1).**  
+**To get the code, go to release page on github to get the stable version (v1.1.2).**  
 
 # yDVR
 
@@ -6,10 +6,9 @@ A nuclear motion quantum mechanics solver written in C++.
 
 This project is a set of toy codes written in several sundays by [Yu Zhai](http://www.zhaiyusci.net/).
 
-The input is in xml format and no manual is available because it cannot be simpler.  Just follow the `dvr.xml` as a sample.
+The input is in xml format and no manual is available because it cannot be simpler.  Just follow the `dvr_2001.xml` as a sample.
 
-To run the code, simply `make` and then `ydvr.x <input>`.
-
+To run the code, simply `make` and then `ydvr.x <input>`.  You can choose GNU's g++ or LLVM compiler like clang++ by editing the `Makefile`.
 
 The mechanics inside are first run a sinc DVR calculation and then run a PODVR calculation based on the sinc DVR resulting basis kets.
 
@@ -22,3 +21,8 @@ Here I thank the [Eigen project](http://eigen.tuxfamily.org/index.php?title=Main
 Also thank [Prof. Hui Li](http://huiligroup.org/).  He makes me aware that this field is very interesting.
 
 This is my first C++ project and I hope you guys forgive that these codes are not robust enough.
+
+## Known issues
++ Do not work well with PGI compiler `pgc++ 18.4-0 64-bit target on x86-64 Linux -tp haswell` because the project is based on Eigen.  
+As a computational chemist I prefer leave this problem to Eigen development team ;-)
+
