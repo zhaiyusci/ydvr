@@ -10,10 +10,11 @@
 #include<sstream>
 #include"mathtools.h"
 #include"podvr.h"
-#include"tinyxml2.h"
+#include"tinyxml2/tinyxml2.h"
 using namespace Eigen;
 using namespace std;
 using namespace tinyxml2;
+using namespace yDVR;
 
 int main(int argc, char *argv[]){
   cout <<endl;
