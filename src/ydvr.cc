@@ -11,6 +11,8 @@
 #include"mathtools.h"
 #include"podvr.h"
 #include"tinyxml2/tinyxml2.h"
+#include"rotation.h"
+
 using namespace Eigen;
 using namespace std;
 using namespace tinyxml2;
@@ -53,7 +55,10 @@ one at http://mozilla.org/MPL/2.0/.)"
   MatrixXd T;
 
 
-  sinc_podvr_1d(m,pri_n,po_n, a, b, grid, E, wf, T, spl);
+  // sincPODVR1d(m,pri_n,po_n, a, b, spl, grid, E, wf, T);
+  sincDVR1d(m,pri_n,a, b, spl, grid, E, wf, T);
+
+  rotationDVR(m, grid, T, 5, E(0));
 
   return 0;
 }

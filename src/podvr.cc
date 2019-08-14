@@ -13,7 +13,8 @@ using namespace Eigen;
 using namespace std;
 
 namespace yDVR{
-  int sinc_podvr_1d(double m, int N, int NPO, double a, double b, VectorXd& x, VectorXd& E, MatrixXd& wf, MatrixXd& H_PODVR, const DoubleFunction1d& potential){
+  int sincPODVR1d(double m, int N, int NPO, double a, double b, const DoubleFunction1d& potential, 
+      VectorXd& x, VectorXd& E, MatrixXd& wf, MatrixXd& H_PODVR){
     auto start=chrono::high_resolution_clock::now();
     cout << endl;
     cout << "============================= MODULE PODVR ============================="<<endl;
@@ -28,9 +29,9 @@ namespace yDVR{
     VectorXd pri_x; // "pri" here means primitive in 
     VectorXd pri_E;
     MatrixXd pri_wf;
-    MatrixXd pri_T_energy;
+    MatrixXd pri_H;
     cout << "1. Call sincDVR module to get primitive states on reference potential..."<<endl;
-    sinc_dvr_1d(m, N, a, b, pri_x, pri_E, pri_wf, potential);
+    sincDVR1d(m, N, a, b, potential, pri_x, pri_E, pri_wf, pri_H);
     cout << "done."<<endl;
 
     cout << "2. Calculate coordinate matrix..."<<flush;
@@ -42,8 +43,8 @@ namespace yDVR{
       }
     }
     cout << "done." <<endl;
-    cout <<"Coordinate matrix on energy representation" << endl;
-    cout << X << endl;
+    // cout <<"Coordinate matrix on energy representation" << endl;
+    // cout << X << endl;
 
     cout << "3. Calculate eigenvalues and vectors of coordinate matrix..."<<flush;
     SelfAdjointEigenSolver<MatrixXd> X_es(X);
@@ -72,34 +73,9 @@ namespace yDVR{
     H_PODVR= podvrbasis.transpose()*H_energy*podvrbasis; // on PODVR basis
     wf=podvrbasis.transpose();
     cout << "!!! PODVR results..."<<endl;
-    cout << "Energy (in Eh)                  ";
-    for(int i =0; i!=NPO; ++i) printf("  %14.8f",E(i)) ;
-    cout <<endl;
-    cout << "Gap (in 1/cm)                   ";
-    for(int i =0; i!=NPO; ++i) printf("  %14.12g",(E(i)-E(0))*219474.6313702) ;
-    cout <<endl;
-    cout << "Grid (in bohr)       (in Angs)    Eigenvector...";
-    cout << endl;
-    // cout <<E.transpose()<<endl;
-    for(int i =0; i!=NPO; ++i) {
-      printf("%14.8f  %14.8f  ",x(i), x(i)*0.52917721067) ;
-      for(int j =0; j!=NPO; ++j) printf("  %14.8f",wf(i,j)) ;
-      cout << endl;
-    }
-    cout <<"Averaged power of coordinates (in bohr, lowest 5 states, up to 5th order)"<<endl;
-    printf("         ");
-    for(int j=0; j!=5&&j!=NPO; ++j){
-      printf("        %1d       ", j);
-    }
-    printf("\n");
 
-    for(int i=1; i!=6; ++i){
-      printf("<x^%1d>  ",i);
-      for(int j=0; j!=5&&j!=NPO; ++j){
-        printf("  %14.8f", mel(i, wf.col(j), x, wf.col(j)));
-      }
-      printf("\n");
-    }
+    printResults(x,E,wf,E(0));
+
     auto stop=chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
     cout << "TIME USED IN THIS MODULE: " << duration.count()/1.0e6 << " sec."<< endl;
