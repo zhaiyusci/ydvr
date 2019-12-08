@@ -55,10 +55,10 @@ one at http://mozilla.org/MPL/2.0/.)"
   MatrixXd T;
 
 
-  // sincPODVR1d(m,pri_n,po_n, a, b, spl, grid, E, wf, T);
-  sincDVR1d(m,pri_n,a, b, spl, grid, E, wf, T);
+  sincPODVR1d(m,pri_n,po_n, a, b, spl, grid, E, wf, T);
+  // sincDVR1d(m,pri_n,a, b, spl, grid, E, wf, T);
 
-  rotationDVR(m, grid, T, 5, E(0));
+  // rotationDVR(m, grid, T, 5, E(0));
 
   return 0;
 }

@@ -18,7 +18,7 @@ namespace yDVR{
     for(int i =0; i!=N; ++i) printf("  %14.8f",E(i)) ;
     cout <<endl;
     cout << "Gap (in 1/cm)                   ";
-    for(int i =0; i!=N; ++i) printf("  %14.12g",(E(i)-E0)*219474.6313702) ;
+    for(int i =0; i!=N; ++i) printf("  %14.8f",(E(i)-E0)*219474.6313702) ;
     cout <<endl;
     cout << "Grid (in bohr)       (in Angs)    Eigenvector...";
     cout << endl;
