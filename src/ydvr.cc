@@ -28,8 +28,7 @@ int main(int argc, char *argv[]){
   cout <<endl;
   cout <<"Cite the codes as:"<<endl;
   cout <<"  Yu Zhai, yDVR: A nuclear motion quantum mechanics solver written in C++,"<<endl;
-  cout <<"      v1.1.0, (2019) https://github.com/zhaiyusci/ydvr"<<endl;
-
+  cout <<"      "<<_YDVR_VERSION<<", (" << _YDVR_YEAR<<") https://github.com/zhaiyusci/ydvr"<<endl;
 
   cout <<endl;
   cout 
