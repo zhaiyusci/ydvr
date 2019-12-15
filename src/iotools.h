@@ -14,5 +14,5 @@ namespace yDVR{
   /** @brief Print result of DVR calculation
    * @param[in] x ...
    */
-  extern int printResults(const Eigen::VectorXd &x, const Eigen::VectorXd &E, const Eigen::MatrixXd &wf, double E0);
+  extern int printResults(const yVector &x, const yVector &E, const yMatrix &wf, yScalar E0);
 }

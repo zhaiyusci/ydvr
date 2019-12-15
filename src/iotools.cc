@@ -12,7 +12,7 @@ using namespace Eigen;
 using namespace std;
 
 namespace yDVR{
-  int printResults(const VectorXd &x, const VectorXd &E, const MatrixXd &wf, double E0){
+  int printResults(const yVector &x, const yVector &E, const yMatrix &wf, yScalar E0){
     int N=x.size();
     cout << "Energy (in Eh)                  ";
     for(int i =0; i!=N; ++i) printf("  %14.8f",E(i)) ;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dvrinput>
   <title> CO </title>
-  <primitive>1000</primitive>
+  <primitive>2000</primitive>
   <podvr>5</podvr>
   <mass massunit="dalton"> 6.856208638000723</mass>
   <a lengthunit="bohr">1.33</a>

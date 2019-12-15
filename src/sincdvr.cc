@@ -13,8 +13,8 @@ using namespace Eigen;
 using namespace std;
 
 namespace yDVR{
-  int sincDVR1d(double m, int N, double a, double b, const DoubleFunction1d& potential, // in
-      VectorXd &x, VectorXd &E, MatrixXd &wf_sincDVR, MatrixXd &H_sincDVR){ // out
+  int sincDVR1d(yScalar m, int N, yScalar a, yScalar b, const DoubleFunction1d& potential, // in
+      yVector &x, yVector &E, yMatrix &wf_sincDVR, yMatrix &H_sincDVR){ // out
     auto start=chrono::high_resolution_clock::now();
     cout << endl;
     cout << "============================ MODULE sincDVR ============================"<<endl;
@@ -29,7 +29,7 @@ namespace yDVR{
     wf_sincDVR.resize(N-1,N-1); // Final wave function
 
     cout << "1. Calculate DVR grids..." << flush;
-    double deltax=(b-a)/N; 
+    yScalar deltax=(b-a)/N; 
     for(int i=1;i!=N;++i){ 
       // I try to follow the way they write the paper, however, you know it is C++
       // here the x(i-1) thing is x(i) in their paper 
@@ -60,7 +60,7 @@ namespace yDVR{
     // cout << H_sincDVR << endl;
 
     cout << "3. Calculate eigenvalues and vectors of Hamiltonian..."<<flush;
-    SelfAdjointEigenSolver<MatrixXd> H_es(H_sincDVR);
+    SelfAdjointEigenSolver<yMatrix> H_es(H_sincDVR);
 
     E=H_es.eigenvalues();
     wf_sincDVR=H_es.eigenvectors();

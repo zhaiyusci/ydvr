@@ -13,8 +13,8 @@ using namespace Eigen;
 using namespace std;
 
 namespace yDVR{
-  int sincPODVR1d(double m, int N, int NPO, double a, double b, const DoubleFunction1d& potential, 
-      VectorXd& x, VectorXd& E, MatrixXd& wf, MatrixXd& H_PODVR){
+  int sincPODVR1d(yScalar m, int N, int NPO, yScalar a, yScalar b, const DoubleFunction1d& potential, 
+      yVector& x, yVector& E, yMatrix& wf, yMatrix& H_PODVR){
     auto start=chrono::high_resolution_clock::now();
     cout << endl;
     cout << "============================= MODULE PODVR ============================="<<endl;
@@ -26,16 +26,16 @@ namespace yDVR{
     E.resize(NPO);
     wf.resize(NPO,NPO);
     H_PODVR.resize(NPO,NPO);
-    VectorXd pri_x; // "pri" here means primitive in 
-    VectorXd pri_E;
-    MatrixXd pri_wf;
-    MatrixXd pri_H;
+    yVector pri_x; // "pri" here means primitive in 
+    yVector pri_E;
+    yMatrix pri_wf;
+    yMatrix pri_H;
     cout << "1. Call sincDVR module to get primitive states on reference potential..."<<endl;
     sincDVR1d(m, N, a, b, potential, pri_x, pri_E, pri_wf, pri_H);
     cout << "done."<<endl;
 
     cout << "2. Calculate coordinate matrix..."<<flush;
-    MatrixXd X(NPO,NPO);
+    yMatrix X(NPO,NPO);
     for(int i=0; i!=NPO; ++i){
       for(int j=0; j!=i+1; ++j){
         X(i,j)=mel(1, pri_wf.col(i), pri_x, pri_wf.col(j)); // in 1D-sincDVR, we have (N-1) DVR points 
@@ -47,9 +47,9 @@ namespace yDVR{
     // cout << X << endl;
 
     cout << "3. Calculate eigenvalues and vectors of coordinate matrix..."<<flush;
-    SelfAdjointEigenSolver<MatrixXd> X_es(X);
+    SelfAdjointEigenSolver<yMatrix> X_es(X);
     x=X_es.eigenvalues();
-    MatrixXd podvrbasis=X_es.eigenvectors(); // we name it as "podvrbasis" and it is true, but the value here is the localized function on energy basis.
+    yMatrix podvrbasis=X_es.eigenvectors(); // we name it as "podvrbasis" and it is true, but the value here is the localized function on energy basis.
     cout << "done." << endl;
 
     cout << "4. Adjust signs..."<<flush;
@@ -65,7 +65,7 @@ namespace yDVR{
     }
     cout << "done." << endl;
 
-    MatrixXd H_energy=MatrixXd::Zero(NPO,NPO);
+    yMatrix H_energy=yMatrix::Zero(NPO,NPO);
     for(int i=0; i!=NPO; ++i){
       H_energy(i,i)=pri_E(i); // on energy basis
       E(i)=pri_E(i);

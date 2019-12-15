@@ -20,7 +20,12 @@
 /** @brief All functions and class in %yDVR package.
  */
 namespace yDVR{
-  extern double mel(const int, const Eigen::VectorXd& , const Eigen::VectorXd& , const Eigen::VectorXd& );
+  typedef Eigen::Matrix<_YDVR_SCALAR, Eigen::Dynamic, Eigen::Dynamic> yMatrix;
+  typedef Eigen::Matrix<_YDVR_SCALAR, Eigen::Dynamic, 1> yVector;
+  typedef _YDVR_SCALAR yScalar;
+
+
+  extern yScalar mel(const int, const yVector& , const yVector& , const yVector& );
 
   /** @brief Pure virtual class defines the one-dimension function in math.
   */
@@ -28,7 +33,7 @@ namespace yDVR{
     public:
       /** @brief Perform the calculation.
       */
-      virtual double operator() (double x) const =0;
+      virtual yScalar operator() (yScalar x) const =0;
       /** @brief Show the 'about' information.
       */
       virtual std::string what() const =0;
@@ -40,16 +45,16 @@ namespace yDVR{
    */
   class CubicSpline1d: public DoubleFunction1d {
     private:
-      Eigen::VectorXd x_;  
-      Eigen::VectorXd y_;
-      Eigen::VectorXd m_; // tangent value on each point
+      yVector x_;  
+      yVector y_;
+      yVector m_; // tangent value on each point
       int N_;    // grid number
     public:
       /** @brief Perform interpolation calculation
        *
        * There are some variant, maybe.  Here, we follow wikipedia.  [The formulae](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Interpolation_on_an_arbitrary_interval).
        */
-      double operator()(double x)const ;
+      yScalar operator()(yScalar x)const ;
       /** @brief Loading data.
        *
        * The tangents are calculated in this function using [finite difference method](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Finite_difference).
@@ -59,7 +64,7 @@ namespace yDVR{
        * @param mi tangent on the first point.
        * @param mf tangent on the final point.
        */
-      CubicSpline1d(int N, const Eigen::VectorXd& x, const Eigen::VectorXd& y, double mi, double mf);
+      CubicSpline1d(int N, const yVector& x, const yVector& y, yScalar mi, yScalar mf);
       /** @brief Show 'about' information
       */
       std::string what() const ;

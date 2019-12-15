@@ -29,8 +29,8 @@ namespace yDVR{
    * @ref sinc_dvr_1d()
    *
   */
-  extern int sincPODVR1d(double m, int N, int NPO, double a, double b, const DoubleFunction1d& potential,
-      Eigen::VectorXd& x, Eigen::VectorXd& E, Eigen::MatrixXd& wf, Eigen::MatrixXd& H_PODVR);
+  extern int sincPODVR1d(yScalar m, int N, int NPO, yScalar a, yScalar b, const DoubleFunction1d& potential,
+      yVector& x, yVector& E, yMatrix& wf, yMatrix& H_PODVR);
 }
 
 #endif 

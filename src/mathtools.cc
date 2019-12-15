@@ -11,8 +11,8 @@ using namespace Eigen;
 using namespace std;
 
 namespace yDVR{
-  double mel(const int power, const VectorXd& bra, const VectorXd& op, const VectorXd& ket){
-    double res=0.0;
+  yScalar mel(const int power, const yVector& bra, const yVector& op, const yVector& ket){
+    yScalar res=0.0;
     res=0.0;
     for (int i =0; i!=bra.size() ;++i){
       res+=bra(i)*pow(op(i),power)*ket(i);
@@ -21,9 +21,9 @@ namespace yDVR{
   }
 
 
-  CubicSpline1d::CubicSpline1d(int N, const VectorXd& x, const VectorXd& y, double mi, double mf){
+  CubicSpline1d::CubicSpline1d(int N, const yVector& x, const yVector& y, yScalar mi, yScalar mf){
     N_=N;
-    x_=x; y_=y; m_=VectorXd::Zero(N);
+    x_=x; y_=y; m_=yVector::Zero(N);
     for (int i =1; i!= N-1; ++i){
       // Finite difference method are used to get the tangents...
       m_(i)=0.5*( (y(i+1)-y(i))/(x(i+1)-x(i))+(y(i-1)-y(i))/(x(i-1)-x(i)));
@@ -39,7 +39,7 @@ namespace yDVR{
   }
 
 
-  double CubicSpline1d::operator()(double x) const{
+  yScalar CubicSpline1d::operator()(yScalar x) const{
 
     // find the right interval using bisec method...
     int posi, posf, posm;
@@ -66,13 +66,13 @@ namespace yDVR{
     }
     // cerr<< posi <<"  "<< posf <<endl;
 
-    double t=(x-x_(posi))/(x_(posf)-x_(posi));
-    double t2=t*t;
-    double t3=t2*t;
-    double h00=2*t3-3*t2+1;
-    double h10=t3-2*t2+t;
-    double h01=-2*t3+3*t2;
-    double h11=t3-t2;
+    yScalar t=(x-x_(posi))/(x_(posf)-x_(posi));
+    yScalar t2=t*t;
+    yScalar t3=t2*t;
+    yScalar h00=2*t3-3*t2+1;
+    yScalar h10=t3-2*t2+t;
+    yScalar h01=-2*t3+3*t2;
+    yScalar h11=t3-t2;
     // cerr << "t   " << t<< endl;
     return h00*y_(posi)
       +h10*(x_(posf)-x_(posi))*m_(posi)

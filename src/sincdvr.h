@@ -26,9 +26,9 @@ namespace yDVR{
    * @param[out] wf_sincDVR wave functions
    * @param[out] H_sincDVR Hamiltonian in sincDVR
   */
-  extern int sincDVR1d(double m, int N, double a, double b, const DoubleFunction1d& potential,
-      Eigen::VectorXd &x, Eigen::VectorXd &E, Eigen::MatrixXd &wf_sincDVR, Eigen::MatrixXd &H_sincDVR);
+  extern int sincDVR1d(yScalar m, int N, yScalar a, yScalar b, const DoubleFunction1d& potential,
+      yVector &x, yVector &E, yMatrix &wf_sincDVR, yMatrix &H_sincDVR);
 }
-// extern double potential(double);
+// extern yScalar potential(yScalar);
 
 #endif // SINCDVR_H

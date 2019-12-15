@@ -19,13 +19,13 @@ namespace yDVR{
    */
   class RotationPotential1d:public DoubleFunction1d {
     private:
-      double m_;
+      yScalar m_;
       int J_;
     public:
       /** @brief Compute the value
        *
        */
-      double operator()(double x)const ;
+      yScalar operator()(yScalar x)const ;
 
       /** @brief Tell the user what it is
        */
@@ -33,7 +33,7 @@ namespace yDVR{
 
       /** @brief Load the basic info
        */
-      RotationPotential1d(double m, int J);
+      RotationPotential1d(yScalar m, int J);
 
       /** @brief set the rotational quantum number J
        */
@@ -41,7 +41,7 @@ namespace yDVR{
 
   };
 
-  extern int rotationDVR(double m, const Eigen::VectorXd &x, const Eigen::MatrixXd &H, int maxJ, double E0);
+  extern int rotationDVR(yScalar m, const yVector &x, const yMatrix &H, int maxJ, yScalar E0);
 }
 
 #endif // ROTATION_H

@@ -39,19 +39,19 @@ one at http://mozilla.org/MPL/2.0/.)"
   cout <<endl;
   cout.setf(ios::fixed, ios::floatfield);
   cout << std::setprecision(8);
-  extern int load_input_file(const char*, int&, int&, int&, double& ,double&, double&, VectorXd& , VectorXd&) ;
+  extern int load_input_file(const char*, int&, int&, int&, yScalar& ,yScalar&, yScalar&, yVector& , yVector&) ;
 
   int pri_n, po_n,pot_n;
-  double m,a,b;
-  VectorXd x;
-  VectorXd y;
+  yScalar m,a,b;
+  yVector x;
+  yVector y;
   load_input_file(argv[1], pri_n, po_n, pot_n, m,a,b, x, y);
   CubicSpline1d spl(pot_n, x, y, 1.0e31, 1.0e31);
 
-  VectorXd grid;
-  VectorXd E;
-  MatrixXd wf;
-  MatrixXd T;
+  yVector grid;
+  yVector E;
+  yMatrix wf;
+  yMatrix T;
 
 
   sincPODVR1d(m,pri_n,po_n, a, b, spl, grid, E, wf, T);
@@ -62,7 +62,7 @@ one at http://mozilla.org/MPL/2.0/.)"
   return 0;
 }
 
-int load_input_file(const char* fn, int& pri_DVR_N, int& PODVR_N, int& pot_N, double& m,double& a, double& b, VectorXd& x, VectorXd& y ){
+int load_input_file(const char* fn, int& pri_DVR_N, int& PODVR_N, int& pot_N, yScalar& m,yScalar& a, yScalar& b, yVector& x, yVector& y ){
   stringstream ss;
   XMLDocument input;
   input.LoadFile(fn);
