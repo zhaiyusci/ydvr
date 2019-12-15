@@ -1,6 +1,6 @@
 CXX=g++
 EIGENROOT=/usr/local/include/eigen3
-CCFLAGS=-Ofast -Wall --std=c++1z -I$(EIGENROOT)\
+CCFLAGS=-Ofast -Wall --std=c++11 -I$(EIGENROOT)\
 				-D_YDVR_VERSION="\"Ver. 1.2.0\"" -D_YDVR_YEAR=2019 
 LDFLAGS= # -lblas # -llapack
 
