@@ -1,5 +1,5 @@
 CXX=g++
-EIGENROOT=/usr/local/include/eigen3
+EIGENROOT=/usr/include/eigen3
 CCFLAGS=-Ofast -Wall --std=c++11 -I$(EIGENROOT) \
 				-D_YDVR_SCALAR=float \
 				-D_YDVR_VERSION="\"Ver. 1.3.0\"" -D_YDVR_YEAR=2019 

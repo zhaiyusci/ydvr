@@ -1,6 +1,6 @@
 // This file is part of ydvr.
 //
-// Copyright (C) 2017 Yu Zhai <me@zhaiyusci.net>
+// Copyright (C) 2020 Yu Zhai <me@zhaiyusci.net>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
@@ -20,41 +20,32 @@
 /** @brief All functions and class in %yDVR package.
  */
 namespace yDVR{
-  typedef Eigen::Matrix<_YDVR_SCALAR, Eigen::Dynamic, Eigen::Dynamic> Matrix;
-  typedef Eigen::Matrix<_YDVR_SCALAR, Eigen::Dynamic, 1> Vector;
-  typedef _YDVR_SCALAR yScalar;
+  typedef __YDVR_SCALAR__ Scalar;
+  typedef Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> Matrix;
+  typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1> ColVector;
+  typedef ColVector Vector;
+  typedef Eigen::Matrix<Scalar, 1, Eigen::Dynamic> RowVector;
+  typedef Eigen::SelfAdjointEigenSolver<Matrix> SelfAdjointEigenSolver;
 
 
-  extern yScalar mel(const int, const yVector& , const yVector& , const yVector& );
-
-  /** @brief Pure virtual class defines the one-dimension function in math.
-  */
-  class DoubleFunction1d{
-    public:
-      /** @brief Perform the calculation.
-      */
-      virtual yScalar operator() (yScalar x) const =0;
-      /** @brief Show the 'about' information.
-      */
-      virtual std::string what() const =0;
-  };
+  extern Scalar mel(const int, const Vector& , const Vector& , const Vector& );
 
   /** @brief One-dimension cubic Hermite spline interpolation function.
    *
    * One-dimension [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline).
    */
-  class CubicSpline1d: public DoubleFunction1d {
+  class CubicSpline1d {
     private:
-      yVector x_;  
-      yVector y_;
-      yVector m_; // tangent value on each point
+      Vector x_;  
+      Vector y_;
+      Vector m_; // tangent value on each point
       int N_;    // grid number
     public:
       /** @brief Perform interpolation calculation
        *
        * There are some variant, maybe.  Here, we follow wikipedia.  [The formulae](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Interpolation_on_an_arbitrary_interval).
        */
-      yScalar operator()(yScalar x)const ;
+      Scalar operator()(Scalar x) const ;
       /** @brief Loading data.
        *
        * The tangents are calculated in this function using [finite difference method](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Finite_difference).
@@ -64,10 +55,7 @@ namespace yDVR{
        * @param mi tangent on the first point.
        * @param mf tangent on the final point.
        */
-      CubicSpline1d(int N, const yVector& x, const yVector& y, yScalar mi, yScalar mf);
-      /** @brief Show 'about' information
-      */
-      std::string what() const ;
+      CubicSpline1d(int N, const Vector& x, const Vector& y, Scalar mi, Scalar mf);
   };
 
 }

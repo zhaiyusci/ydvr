@@ -9,10 +9,53 @@
 #include"sincdvr.h"
 #include<chrono>
 
-using namespace Eigen;
-using namespace std;
-
 namespace yDVR{
+  Vector SincDVR::Grids(){
+    if(grids_.size() == 0){
+      std::cout << "Calculate DVR grids..." << std::flush;
+      Scalar deltax=(b_-a_)/N_; 
+      for(int i = 1; i < N_; ++i){ 
+        // I try to follow the way they write the paper, however, you know it is C++
+        // here the x(i-1) thing is x(i) in their paper 
+        // and the reason is that in C-like language the 
+        // index start from 0
+        // ... so here I only change the index
+        grids_(i-1)=a_+deltax*i;
+      }
+      std::cout << "done." << std::endl;
+    }
+    return grids_;
+  }
+
+  Matrix SincDVR::KineticMatrix(){
+    if(kinetic_matrix_.cols() == 0){
+      std::cout << "Calculate kinetic matrix..." << std::flush;
+      Scalar deltax=(b_-a_)/N_; 
+      Scalar m=oscillator_->mass();
+      kinetic_matrix_.resize(N_-1, N_-1); 
+      // in the paper it is i' but I think using j is a better idea
+      // For i!=j ... 
+      for(int i=1; i<N_; ++i){
+        for(int j=1;j<i; ++j){
+          kinetic_matrix_(i-1,j-1)
+            =1.0/(2*m*pow(deltax,2))*pow(-1,(i-j))*2/pow((i-j),2);
+          kinetic_matrix_(j-1,i-1)=kinetic_matrix_(i-1,j-1);
+        }
+      }
+      // For i==j
+      for(int i=1; i<N_; ++i){
+        kinetic_matrix_(i-1,i-1)
+          =1.0/(2*m*pow(deltax,2))*pow(M_PI,2)/3.0;
+      }
+      std::cout << "done." << std::endl;
+    }
+    return kinetic_matrix_;
+  }
+
+  SincDVR::SincDVR(Oscillator* oscillator, Scalar a, Scalar b, int N):
+    DiscreteVariableRepresentation(oscillator), a_(a), b_(b), N_(N){}
+
+  /*
   int sincDVR1d(yScalar m, int N, yScalar a, yScalar b, const DoubleFunction1d& potential, // in
       yVector &x, yVector &E, yMatrix &wf_sincDVR, yMatrix &H_sincDVR){ // out
     auto start=chrono::high_resolution_clock::now();
@@ -80,4 +123,5 @@ namespace yDVR{
 
     return 0;
   } 
+  */
 }
