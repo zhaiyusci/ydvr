@@ -27,6 +27,7 @@ namespace yDVR{
       virtual Matrix KineticMatrix() = 0;
       virtual Matrix PotentialMatrix();
       virtual Vector Grids() = 0; 
+      virtual Matrix CoordinateMatrix();
       virtual ~DiscreteVariableRepresentation(){}
       DiscreteVariableRepresentation(Oscillator* oscillator):
         Representation(oscillator){};

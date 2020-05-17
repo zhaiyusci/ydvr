@@ -13,6 +13,7 @@ namespace yDVR{
   Vector SincDVR::Grids(){
     if(grids_.size() == 0){
       std::cout << "Calculate DVR grids..." << std::flush;
+      grids_.resize(N_-1);
       Scalar deltax=(b_-a_)/N_; 
       for(int i = 1; i < N_; ++i){ 
         // I try to follow the way they write the paper, however, you know it is C++

@@ -13,4 +13,7 @@ namespace yDVR{
     return potential_matrix_;
   }
 
+  Matrix DiscreteVariableRepresentation::CoordinateMatrix(){
+    return Grids().asDiagonal();
+  }
 }

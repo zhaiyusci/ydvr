@@ -21,18 +21,13 @@ namespace yDVR{
     protected:
       const Scalar mass_;
       std::function<Scalar(Scalar)> potential_;
-      Representation* representation_;
-      std::vector<StationaryState*> stationary_states_;
 
       void ComputeEnergyLevels();
     public:
       inline Oscillator(Scalar mass, const std::function<Scalar(Scalar)>& potential)
-        : mass_(mass), potential_(potential), representation_(nullptr) { }
+        : mass_(mass), potential_(potential) { }
       inline Scalar mass(){ return mass_; }
       inline Scalar Potential(Scalar q){ return potential_(q); }
-      Scalar EnergyLevel(unsigned i);
-      StationaryState EnergyState(unsigned i);
-      void UseRepresentation(Representation* representation);
   };
 }
 #endif // YDVR_OSCILLATOR_H_

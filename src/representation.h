@@ -26,6 +26,8 @@ namespace yDVR{
       Matrix potential_matrix_;
       Matrix hamiltonian_matrix_;
       Oscillator* const oscillator_;
+      void ComputeEnergyLevels();
+      std::vector<StationaryState*> stationary_states_;
     public:
       Representation(Oscillator* oscillator): oscillator_(oscillator){}
   /** @brief Return the kinetic energy matrix. 
@@ -37,7 +39,10 @@ namespace yDVR{
   /** @brief Return the energy matrix. 
   */
       virtual Matrix HamiltonianMatrix(); 
-      virtual inline ~Representation(){}
+      virtual ~Representation();
+      inline Oscillator* const oscillator(){return oscillator_;}
+      Scalar EnergyLevel(unsigned i);
+      StationaryState EnergyState(unsigned i);
   };
 }
 #endif //  YDVR_REPRESENTATION_H_
