@@ -1,6 +1,6 @@
 // This file is part of ydvr.
 //
-// Copyright (C) 2017 Yu Zhai <me@zhaiyusci.net>
+// Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
@@ -17,6 +17,12 @@ namespace yDVR{
     primitive_representation_(primitive_representation),
     N_(N)
   {
+    LOG << std::endl;
+    LOG << "============================= class PODVR ============================="<<std::endl;
+    LOG << std::endl;
+    LOG << "Reference: "<<std::endl;
+    LOG << "  J. Echave and D. C. Clary, Chem. Phys. Lett. 190, 225 (1992) doi:10.1016/0009-2614(92)85330-D"<<std::endl;
+    LOG << std::endl;
   }
 
   Vector PODVR::Grids(){

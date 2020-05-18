@@ -1,62 +1,67 @@
 // This file is part of ydvr.
 //
-// Copyright (C) 2020 Yu Zhai <me@zhaiyusci.net>
+// Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#ifndef MATHTOOLS_H
-#define MATHTOOLS_H
-#include<iostream>
-#include<exception>
-#include<stdexcept>
+#ifndef YDVR_CONFIG_H_
+#define YDVR_CONFIG_H_
+
 #include<Eigen/Dense>
 #include<Eigen/Eigenvalues>
-#include<cstring>
-#include<cmath>
-#include<vector>
+#include<iostream>
+#include<fstream>
+#include<chrono>
+#include<ctime>
+#include<iomanip>
 
 /** @brief All functions and class in %yDVR package.
  */
 namespace yDVR{
-  typedef __YDVR_SCALAR__ Scalar;
+  // Define precise used in yDVR
+  typedef double Scalar; // ... can change here
+
+  // Define Linear Algebra classes, user may want different linear algebra library
   typedef Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> Matrix;
   typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1> ColVector;
   typedef ColVector Vector;
   typedef Eigen::Matrix<Scalar, 1, Eigen::Dynamic> RowVector;
   typedef Eigen::SelfAdjointEigenSolver<Matrix> SelfAdjointEigenSolver;
 
-
-  extern Scalar mel(const int, const Vector& , const Vector& , const Vector& );
-
-  /** @brief One-dimension cubic Hermite spline interpolation function.
-   *
-   * One-dimension [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline).
-   */
-  class CubicSpline1d {
+  // Define log file
+  class Log{
     private:
-      Vector x_;  
-      Vector y_;
-      Vector m_; // tangent value on each point
-      int N_;    // grid number
+      static std::ostream* p_stream_;
+      Log(){}
     public:
-      /** @brief Perform interpolation calculation
-       *
-       * There are some variant, maybe.  Here, we follow wikipedia.  [The formulae](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Interpolation_on_an_arbitrary_interval).
-       */
-      Scalar operator()(Scalar x) const ;
-      /** @brief Loading data.
-       *
-       * The tangents are calculated in this function using [finite difference method](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Finite_difference).
-       * @param N length of pointwise data.
-       * @param x input variables. It is required that it is sorted.
-       * @param y output variables.
-       * @param mi tangent on the first point.
-       * @param mf tangent on the final point.
-       */
-      CubicSpline1d(int N, const Vector& x, const Vector& y, Scalar mi, Scalar mf);
+      inline static void set(std::ostream& stream){
+        get() << "*** Change to other log stream." << std::endl;
+        p_stream_ = &stream;
+        auto&& t = std::chrono::system_clock::now();
+        std::time_t t_c = std::chrono::system_clock::to_time_t(t);
+        get() << "*** Open the log file, and the date is " << std::put_time(std::localtime(&t_c), "%F") << std::endl;
+        return;
+      }
+      static void set(std::string filename){
+        static std::ofstream* p_fs=nullptr;
+        std::ofstream* p_newfs = new std::ofstream(filename, std::ios::app);
+        set(*p_newfs);
+        if(p_fs != nullptr){
+          p_fs->close();
+          delete p_fs;
+        }
+        p_fs = p_newfs;
+        return;
+      }
+      inline static std::ostream& get(){
+        auto&& t = std::chrono::system_clock::now();
+        std::time_t t_c = std::chrono::system_clock::to_time_t(t);
+        return *p_stream_ << "[" << std::put_time(std::localtime(&t_c), "%T") << "]" << " yDVR > ";
+      }
   };
-
 }
-#endif 
+#define LOG Log::get()
+
+#endif // YDVR_CONFIG_H_

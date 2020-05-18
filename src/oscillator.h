@@ -1,6 +1,6 @@
-// This file is part of ydvr.
+// This file is part of yDVR.
 //
-// Copyright (C) 2020 Yu Zhai <me@zhaiyusci.net>
+// Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
@@ -9,9 +9,6 @@
 #ifndef YDVR_OSCILLATOR_H_
 #define YDVR_OSCILLATOR_H_
 #include"config.h"
-// #include"representation.h"
-#include<vector>
-// #include"stationary_state.h"
 
 namespace yDVR{
   class Representation;
@@ -21,8 +18,6 @@ namespace yDVR{
     protected:
       const Scalar mass_;
       std::function<Scalar(Scalar)> potential_;
-
-      void ComputeEnergyLevels();
     public:
       inline Oscillator(Scalar mass, const std::function<Scalar(Scalar)>& potential)
         : mass_(mass), potential_(potential) { }

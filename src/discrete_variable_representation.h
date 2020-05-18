@@ -1,6 +1,6 @@
 // This file is part of ydvr.
 //
-// Copyright (C) 2020 Yu Zhai <me@zhaiyusci.net>
+// Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
@@ -10,14 +10,15 @@
 #define YDVR_DISCRETE_VARIABLE_REPRESENTATION_H_
 
 #include<iostream>
-#include<string>
 #include"config.h"
 #include"representation.h"
 
 /* @file
  */
 
+
 namespace yDVR{
+
   /** @brief Pure virtual class define the Discrete Variable Representation.
   */
   class DiscreteVariableRepresentation: public Representation{

@@ -1,6 +1,6 @@
 // This file is part of ydvr.
 //
-// Copyright (C) 2017 Yu Zhai <me@zhaiyusci.net>
+// Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
@@ -18,7 +18,7 @@ namespace yDVR{
     protected:
       const Scalar a_;
       const Scalar b_;
-      const int N_;
+      const int N_plus_1_;
     public:
       SincDVR(Oscillator* oscillator, Scalar a, Scalar b, int N);
       virtual Matrix KineticMatrix();

@@ -1,4 +1,4 @@
-// This file is part of yDVR.
+// This file is part of ydvr.
 //
 // Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //
@@ -6,9 +6,10 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#include"oscillator.h"
-#include"stationary_state.h"
-#include"representation.h"
-
-namespace yDVR {
+#include"config.h"
+/** @brief All functions and class in %yDVR package.
+ */
+namespace yDVR{
+  // Define log file
+  std::ostream* Log::p_stream_=&std::cerr;
 }

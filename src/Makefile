@@ -1,13 +1,19 @@
+# This file is part of yDVR.
+#
+# Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
+#
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 CXX=g++
 EIGENROOT=/usr/include/eigen3
-CCFLAGS=-Ofast -Wall --std=c++11 -I$(EIGENROOT) \
-				-D__YDVR_SCALAR__=float \
-				-D_YDVR_VERSION="\"Ver. 2.0.0\"" -D_YDVR_YEAR=2020 
+CCFLAGS=-Ofast -Wall --std=c++11 -I$(EIGENROOT) 
 LDFLAGS= # -lblas # -llapack
 
 # objects=sincdvr.o podvr.o mathtools.o iotools.o rotation.o tinyxml2/tinyxml2.o 
 objects=sincdvr.o discrete_variable_representation.o representation.o \
-				oscillator.o podvr.o
+				oscillator.o podvr.o config.o
 copes=co_pes_2016/ELJ.o 
 
 sincdvr_test.exe: $(objects) $(copes) sincdvr_test.cc
@@ -24,17 +30,9 @@ $(copes): %.o : %.cc %.h
 
 all: ydvr.x
 
-test.x: test.o $(objects)
-	$(CXX) -o $@ $(CCFLAGS) test.o $(objects)
+test.x: sincdvr_test.exe podvr_test.exe
 
-
-ydvr.o: ydvr.cc mathtools.o
-	$(CXX) -o $@ -c $(CCFLAGS) ydvr.cc
-
-ydvr.x: ydvr.o $(objects)
-	$(CXX) -o $@ $(CCFLAGS) ydvr.o $(objects) $(LDFLAGS)
-
-.PHONY: clean all
+.PHONY: clean all tests
 
 clean:
-	rm -f *.o *.x
+	rm -f *.o *.exe
