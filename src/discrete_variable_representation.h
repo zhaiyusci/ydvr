@@ -25,11 +25,29 @@ namespace yDVR{
     protected:
       Vector grids_;
     public:
-      virtual Matrix KineticMatrix() = 0;
+      /** @brief Returns the potential matrix.
+       *
+       * Potential matrix on DVR is a diagonal matrix, 
+       * whose diagonal elements are potential energy of DVR grids
+       */
       virtual Matrix PotentialMatrix();
+      /** @brief Returns the DVR grids.
+       */
       virtual Vector Grids() = 0; 
+      /** @brief Returns the coordinate matrix.
+       *
+       * Just return the grids as diagonal matrix.
+       * Implement of a `DiscreteVariableRepresentation` should implement 
+       * `Grids()` instead of implement this function.
+       */
       virtual Matrix CoordinateMatrix();
+      /** @brief Distructor.
+       */
       virtual ~DiscreteVariableRepresentation(){}
+      /** @brief Constructor.
+       *
+       * @param oscillator Pointer to oscillator of which the representation is.
+       */
       DiscreteVariableRepresentation(Oscillator* oscillator):
         Representation(oscillator){};
   };

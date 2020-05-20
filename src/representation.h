@@ -36,12 +36,24 @@ namespace yDVR{
   /** @brief Return the potential energy matrix. 
   */
       virtual Matrix PotentialMatrix() = 0;
-  /** @brief Return the energy matrix. 
+  /** @brief Return the hamiltonian matrix. 
   */
       virtual Matrix HamiltonianMatrix(); 
+  /** @brief Distructor.
+  */
       virtual ~Representation();
+  /** @brief Return pointer to its oscillator.
+  */
       inline Oscillator* const oscillator(){return oscillator_;}
+  /** @brief Energy of its i'th energy level.
+   *
+   * @param i Quantum number of the vibrational
+  */
       Scalar EnergyLevel(unsigned i);
+  /** @brief i'th energy state.
+   *
+   * @param i Quantum number of the vibrational
+  */
       StationaryState EnergyState(unsigned i);
   };
 }

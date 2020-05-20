@@ -14,14 +14,27 @@ namespace yDVR{
   class Representation;
   class StationaryState;
 
+  /** @brief Simple one-dimension oscillator.
+   */
   class Oscillator{
     protected:
       const Scalar mass_;
       std::function<Scalar(Scalar)> potential_;
     public:
+      /** @brief Constructor.
+       *
+       * @param mass The mass of the oscillator.
+       * @param potential The potential energy function of the oscillator.
+       */
       inline Oscillator(Scalar mass, const std::function<Scalar(Scalar)>& potential)
         : mass_(mass), potential_(potential) { }
+      /** @brief Get the mass 
+       */
       inline Scalar mass(){ return mass_; }
+      /** @brief Calculate the potential.
+       *
+       * @param q Coordinate at which the potential energy is calculated.
+       */
       inline Scalar Potential(Scalar q){ return potential_(q); }
   };
 }
