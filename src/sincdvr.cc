@@ -7,11 +7,12 @@
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #include"sincdvr.h"
+#include"oscillator.h"
 #include"log.h"
 #include<chrono>
 
 namespace yDVR{
-  Vector SincDVR::Grids(){
+  const Vector& SincDVR::Grids(){
     if(grids_.size() == 0){
       Log::indent();
       LOG << "Calculate Sinc-DVR grids..." << std::endl;
@@ -31,7 +32,7 @@ namespace yDVR{
     return grids_;
   }
 
-  Matrix SincDVR::KineticMatrix(){
+  const Matrix& SincDVR::KineticMatrix(){
     if(kinetic_matrix_.cols() == 0){
       Log::indent();
       LOG << "Calculate Sinc-DVR kinetic matrix..." << std::endl;
@@ -58,7 +59,7 @@ namespace yDVR{
     return kinetic_matrix_;
   }
 
-  SincDVR::SincDVR(Oscillator* oscillator, Scalar a, Scalar b, int N):
+  SincDVR::SincDVR(const Oscillator& oscillator, Scalar a, Scalar b, int N):
     DiscreteVariableRepresentation(oscillator), a_(a), b_(b), 
     N_plus_1_(N+1)  
     // some wrapper here to let the user feels good

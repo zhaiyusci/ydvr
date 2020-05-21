@@ -9,13 +9,14 @@
 #include"podvr.h"
 #include"stationary_state.h"
 #include"log.h"
+#include"oscillator.h"
 
 namespace yDVR{
-  PODVR::PODVR(Oscillator* oscillator, 
-      DiscreteVariableRepresentation* primitive_representation,
+  PODVR::PODVR(const Oscillator& oscillator, 
+      DiscreteVariableRepresentation& primitive_representation,
       int N):
     DiscreteVariableRepresentation(oscillator),
-    primitive_representation_(primitive_representation),
+    primitive_representation_(&primitive_representation),
     N_(N)
   {
     LOG << std::endl;
@@ -26,11 +27,11 @@ namespace yDVR{
     LOG << std::endl;
   }
 
-  Vector PODVR::Grids(){
+  const Vector& PODVR::Grids(){
     if(grids_.size() == 0){
       Log::indent();
       LOG << "Calculate PO-DVR grids..." << std::endl;
-      grids_.resize(N_);
+      grids_=Vector::Zero(N_);
       Matrix coordinate_matrix(N_,N_);
       Matrix pri_coord = primitive_representation_->CoordinateMatrix();
       for(int i=0; i<N_; ++i){
@@ -64,13 +65,13 @@ namespace yDVR{
     return grids_;
   }
 
-  Matrix PODVR::KineticMatrix(){
+  const Matrix& PODVR::KineticMatrix(){
     // Kinetic energy here is **not** kinetic energy but the hamiltonian 
     // of primitive representation
     if(kinetic_matrix_.cols() == 0){
       Log::indent();
       LOG << "Calculate PO-DVR primitive hamiltonian..." << std::endl;
-      kinetic_matrix_.resize(N_,N_);
+      kinetic_matrix_=Matrix::Zero(N_,N_);
       Grids(); // make sure that primitive_to_po_ calculated
       for(int i = 0; i<N_; ++i){
         kinetic_matrix_(i,i) = primitive_representation_->EnergyLevel(i);
@@ -85,19 +86,19 @@ namespace yDVR{
     return kinetic_matrix_;
   }
 
-  Matrix PODVR::PotentialMatrix(){
+  const Matrix& PODVR::PotentialMatrix(){
     // Potential energy here is **not** potential energy but the 
     // change in potential energy from the one of primitive representation
     if(potential_matrix_.cols() == 0){
       Log::indent();
       LOG << "Calculate PO-DVR potential correction..." << std::endl;
       potential_matrix_ = Matrix::Zero(N_,N_);
-      if (this->oscillator_ != primitive_representation_->oscillator()){
+      if (this->oscillator_ != &(primitive_representation_->oscillator())){
         LOG << "Different oscillators, calculating..." << std::endl;
         for(int i = 0; i < N_; ++i){
           potential_matrix_(i,i) = 
             this->oscillator_->Potential(Grids()(i))
-            - primitive_representation_->oscillator()->Potential(Grids()(i));
+            - primitive_representation_->oscillator().Potential(Grids()(i));
         }
         LOG << "done." << std::endl;
       } else {

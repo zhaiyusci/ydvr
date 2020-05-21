@@ -33,13 +33,13 @@ namespace yDVR{
        * @param b end point of the coordinate.
        * @param N Number of grids.
        */
-      SincDVR(Oscillator* oscillator, Scalar a, Scalar b, int N);
+      SincDVR(const Oscillator& oscillator, Scalar a, Scalar b, int N);
       /** @brief Kinetic energy matrix.
        */
-      virtual Matrix KineticMatrix();
+      virtual const Matrix& KineticMatrix();
       /** @brief Sinc DVR grids.
        */
-      virtual Vector Grids();
+      virtual const Vector& Grids();
   };
 }
 

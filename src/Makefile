@@ -8,12 +8,12 @@
 
 CXX=g++
 EIGENROOT=/usr/include/eigen3
-CCFLAGS=-Ofast -Wall --std=c++11 -fPIC -I$(EIGENROOT)
+CCFLAGS=-g -Ofast -Wall --std=c++11 -fPIC -I$(EIGENROOT)
 LDFLAGS= # -lblas # -llapack
 
 # objects=sincdvr.o podvr.o mathtools.o iotools.o rotation.o tinyxml2/tinyxml2.o 
 objects=sincdvr.o discrete_variable_representation.o representation.o \
-				oscillator.o podvr.o log.o
+				oscillator.o podvr.o log.o abstract_representation.o
 copes=co_pes_2016/ELJ.o 
 
 
@@ -39,4 +39,5 @@ tests: sincdvr_test.exe podvr_test.exe
 .PHONY: clean all tests
 
 clean:
-	rm -f *.o *.exe
+	rm -f *.o *.exe *.out
+

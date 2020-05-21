@@ -19,34 +19,34 @@ namespace yDVR{
    */
   class PODVR : public DiscreteVariableRepresentation{
     protected:
-      DiscreteVariableRepresentation* const primitive_representation_;
+      DiscreteVariableRepresentation* primitive_representation_;
       int N_; // default value 10
       Matrix primitive_to_po_;
     public:
   /** @brief Constructor.
    *
-   * @param oscillator Pointer to the coresponding oscillator.
+   * @param oscillator The coresponding oscillator.
    * @param primitive_representation Pointer to the DVR which is the base of PODVR.  E.g., you can perform a sinc-DVR as the primitive calculation.
    * @param N Number of PODVR grids.
    */
-      PODVR(Oscillator* oscillator, 
-          DiscreteVariableRepresentation* primitive_representation,
+      PODVR(const Oscillator& oscillator, 
+          DiscreteVariableRepresentation& primitive_representation,
           int N);
   /** @brief Hamiltonian of primitive representation
    *
    * Not the real kinetic matrix!  In PODVR, this part is the reference hamiltonian.
    */
-      virtual Matrix KineticMatrix();
+      virtual const Matrix& KineticMatrix();
   /** @brief Potential change from primitive representation
    *
    * Not the real potential matrix!  
    * If you just use PODVR scheme to perform a basis set contraction,
    * this part is zero.
    */
-      virtual Matrix PotentialMatrix();
+      virtual const Matrix& PotentialMatrix();
   /** @brief PODVR grids.
    */
-      virtual Vector Grids();
+      virtual const Vector& Grids();
   };
 }
 

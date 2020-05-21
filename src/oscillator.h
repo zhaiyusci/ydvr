@@ -12,7 +12,6 @@
 
 namespace yDVR{
   class Representation;
-  class StationaryState;
 
   /** @brief Simple one-dimension oscillator.
    */
@@ -30,12 +29,12 @@ namespace yDVR{
         : mass_(mass), potential_(potential) { }
       /** @brief Get the mass 
        */
-      inline Scalar mass(){ return mass_; }
+      inline Scalar mass()const{ return mass_; }
       /** @brief Calculate the potential.
        *
        * @param q Coordinate at which the potential energy is calculated.
        */
-      inline Scalar Potential(Scalar q){ return potential_(q); }
+      inline Scalar Potential(Scalar q)const{ return potential_(q); }
   };
 }
 #endif // YDVR_OSCILLATOR_H_

@@ -12,49 +12,31 @@
 #include<iostream>
 #include<vector>
 #include"config.h"
-#include"oscillator.h"
+#include"stationary_state.h"
+#include"abstract_representation.h"
 
 /* @file
  */
 
 namespace yDVR{
+  class Oscillator;
   /** @brief Pure virtual class define the interface of a representation.
   */
-  class Representation{
+  class Representation : public AbstractRepresentation{
     protected:
-      Matrix kinetic_matrix_;
-      Matrix potential_matrix_;
-      Matrix hamiltonian_matrix_;
-      Oscillator* const oscillator_;
-      void ComputeEnergyLevels();
-      std::vector<StationaryState*> stationary_states_;
+      const Oscillator* oscillator_;
     public:
-      Representation(Oscillator* oscillator): oscillator_(oscillator){}
-  /** @brief Return the kinetic energy matrix. 
-  */
-      virtual Matrix KineticMatrix() = 0;
-  /** @brief Return the potential energy matrix. 
-  */
-      virtual Matrix PotentialMatrix() = 0;
-  /** @brief Return the hamiltonian matrix. 
-  */
-      virtual Matrix HamiltonianMatrix(); 
-  /** @brief Distructor.
-  */
-      virtual ~Representation();
-  /** @brief Return pointer to its oscillator.
-  */
-      inline Oscillator* const oscillator(){return oscillator_;}
-  /** @brief Energy of its i'th energy level.
-   *
-   * @param i Quantum number of the vibrational
-  */
-      Scalar EnergyLevel(unsigned i);
-  /** @brief i'th energy state.
-   *
-   * @param i Quantum number of the vibrational
-  */
-      StationaryState EnergyState(unsigned i);
+      /** @brief Constructor
+      */
+      Representation(const Oscillator& oscillator): 
+        AbstractRepresentation(),
+        oscillator_(&oscillator){}
+      /** @brief Distructor.
+      */
+      virtual ~Representation(){}
+      /** @brief Return pointer to its oscillator.
+      */
+      inline const Oscillator& oscillator(){return *oscillator_;}
   };
 }
 #endif //  YDVR_REPRESENTATION_H_
