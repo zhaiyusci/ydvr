@@ -8,12 +8,15 @@
 
 CXX=g++
 EIGENROOT=/usr/include/eigen3
-CCFLAGS=-g -Ofast -Wall --std=c++11 -fPIC -I$(EIGENROOT)
+CCFLAGS=-g -Ofast -Wall --std=c++11 -fPIC -I$(EIGENROOT) -DNDEBUG
 LDFLAGS= # -lblas # -llapack
 
 # objects=sincdvr.o podvr.o mathtools.o iotools.o rotation.o tinyxml2/tinyxml2.o 
-objects=sincdvr.o discrete_variable_representation.o representation.o \
-				oscillator.o podvr.o log.o abstract_representation.o
+objects=sincdvr.o dvr.o representation.o \
+				oscillator.o podvr.o log.o abstract_representation.o \
+				md_oscillator.o orthogonal_md_dvr.o orthogonal_md_oscillator.o \
+				md_podvr.o ../contrib/simultaneousDiagonalization/simultaneousDiagonalization.o 
+
 copes=co_pes_2016/ELJ.o 
 
 
@@ -26,6 +29,9 @@ podvr_test.exe: libydvr.so $(copes) podvr_test.cc
 sincdvr_test.exe: $(objects) $(copes) sincdvr_test.cc
 	$(CXX) -o $@ $(CCFLAGS) sincdvr_test.cc $(objects) $(copes)
 
+mddvr_test.exe: libydvr.so mddvr_test.cc ../contrib/simultaneousDiagonalization/simultaneousDiagonalization.o
+	$(CXX) -o $@ $(CCFLAGS) mddvr_test.cc -L. -lydvr 
+
 $(objects): %.o : %.cc %.h
 	$(CXX) -o $@ -c $(CCFLAGS) $< 
 
@@ -34,10 +40,10 @@ $(copes): %.o : %.cc %.h
 
 all: ydvr.x
 
-tests: sincdvr_test.exe podvr_test.exe
+tests: sincdvr_test.exe podvr_test.exe mddvr_test.exe
 
 .PHONY: clean all tests
 
 clean:
-	rm -f *.o *.exe *.out
+	rm -f *.o *.exe *.out *.so
 

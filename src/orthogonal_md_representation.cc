@@ -6,10 +6,10 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-
+#include"orthogonal_md_representation.h"
 namespace yDVR{
-  OrthogonalMDRepresentation::OscillatorOfDimension(
+  const Oscillator& OrthogonalMDRepresentation::OscillatorOfDimension(
       std::vector<Oscillator>::size_type i){
-    return &(oscillator_.OneDimension(i));
+    return oscillator_->OneDimension(i);
   }
 }

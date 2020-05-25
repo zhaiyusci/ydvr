@@ -1,0 +1,6 @@
+[submodule "contrib/mdindex"]
+	path = contrib/mdindex
+	url = git@github.com:zhaiyusci/mdindex.git
+[submodule "contrib/simultaneousDiagonalization"]
+	path = contrib/simultaneousDiagonalization
+	url = git@github.com:zhaiyusci/simultaneousDiagonalization.git

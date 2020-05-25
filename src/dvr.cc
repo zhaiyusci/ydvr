@@ -7,10 +7,10 @@
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #include"config.h"
-#include"discrete_variable_representation.h"
+#include"dvr.h"
 #include"oscillator.h"
 namespace yDVR{
-  const Matrix& DiscreteVariableRepresentation::PotentialMatrix(){
+  const Matrix& DVR::PotentialMatrix(){
     Grids(); // grids must available before potential energy matrix element are done
     if ( potential_matrix_.cols() == 0){
       int s = grids_.size();
@@ -22,7 +22,7 @@ namespace yDVR{
     return potential_matrix_;
   }
 
-  const Matrix DiscreteVariableRepresentation::CoordinateMatrix(){
+  const Matrix DVR::CoordinateMatrix(){
     return Grids().asDiagonal();
   }
 }

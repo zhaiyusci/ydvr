@@ -16,8 +16,11 @@ namespace yDVR{
       OrthogonalMDOscillator* oscillator_;
       std::vector<Representation*> representations_;
     public:
-      Oscillator* OscillatorOfDimension(std::vector<Oscillator>::size_type i);
-
-
+      OrthogonalMDRepresentation(OrthogonalMDOscillator& oscillator)
+        : oscillator_(&oscillator)
+      {
+      }
+      const Oscillator& OscillatorOfDimension(std::vector<Oscillator>::size_type i);
+      void SetRepresentation(Representation& representation);
   };
 }

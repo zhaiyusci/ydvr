@@ -60,7 +60,7 @@ namespace yDVR{
   }
 
   SincDVR::SincDVR(const Oscillator& oscillator, Scalar a, Scalar b, int N):
-    DiscreteVariableRepresentation(oscillator), a_(a), b_(b), 
+    DVR(oscillator), a_(a), b_(b), 
     N_plus_1_(N+1)  
     // some wrapper here to let the user feels good
     // and rename N_ to N_plus_1_ to let the author feels good

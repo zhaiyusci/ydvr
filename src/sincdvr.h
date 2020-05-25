@@ -8,7 +8,7 @@
 
 #ifndef YDVR_SINCDVR_H_
 #define YDVR_SINCDVR_H_
-#include"discrete_variable_representation.h"
+#include"dvr.h"
 
 /* @file
  */
@@ -20,7 +20,7 @@ namespace yDVR{
    * D. T. Colbert and W. H. Miller, J. Chem. Phys. 96, 1982 (1992) 
    * doi:10.1063/1.462100
    */
-  class SincDVR : public DiscreteVariableRepresentation{
+  class SincDVR : public DVR{
     protected:
       const Scalar a_;
       const Scalar b_;

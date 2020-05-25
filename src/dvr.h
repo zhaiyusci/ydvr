@@ -6,8 +6,8 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#ifndef YDVR_DISCRETE_VARIABLE_REPRESENTATION_H_
-#define YDVR_DISCRETE_VARIABLE_REPRESENTATION_H_
+#ifndef YDVR_DVR_H_
+#define YDVR_DVR_H_
 
 #include<iostream>
 #include"config.h"
@@ -21,7 +21,7 @@ namespace yDVR{
 
   /** @brief Pure virtual class define the Discrete Variable Representation.
   */
-  class DiscreteVariableRepresentation: public Representation{
+  class DVR: public Representation{
     protected:
       Vector grids_;
     public:
@@ -43,14 +43,14 @@ namespace yDVR{
       virtual const Matrix CoordinateMatrix();
       /** @brief Distructor.
        */
-      virtual ~DiscreteVariableRepresentation(){}
+      virtual ~DVR(){}
       /** @brief Constructor.
        *
        * @param oscillator Pointer to oscillator of which the representation is.
        */
-      DiscreteVariableRepresentation(const Oscillator& oscillator):
+      DVR(const Oscillator& oscillator):
         Representation(oscillator),
         grids_(0) {};
   };
 }
-#endif // YDVR_DISCRETE_VARIABLE_REPRESENTATION_H_
+#endif // YDVR_DVR_H_

@@ -43,6 +43,12 @@ namespace yDVR{
        * @param i i'th dimension
        */
       inline Scalar mass(std::vector<Scalar>::size_type i) const { return mass_[i];}
+      /** @brief Return the dimension of the oscillator
+       */
+      inline std::vector<Scalar>::size_type dimension() const {return mass_.size();}
+      /** @brief Potential energy.
+       */
+      inline Scalar Potential(const std::vector<Scalar>& q)const { return potential_(q);}
       /** @brief Virtual destructor.
        */
       virtual ~MDOscillator(){}

@@ -23,7 +23,27 @@ namespace yDVR{
       std::vector<Oscillator> oscillators_;
       std::vector<Scalar> equilibrium_;
     public:
-      using MDOscillator::MDOscillator; // Use the constructor.
+      /** @brief Constructor.
+       *
+       * @param mass Vector of mass 
+       * @param potential The potential function, whose parameter is vector formed by the coordinates
+       *
+       * The user should make sure the dimension of the two part are identical.
+       */
+      OrthogonalMDOscillator(const std::vector<Scalar>& mass, std::function<Scalar(const std::vector<Scalar>&)> potential):
+        MDOscillator(mass, potential), equilibrium_(mass.size(), 0.)
+    { }
+      /** @brief Constructor for uniform mass case.
+       *
+       * @param dimension
+       * @param mass 
+       * @param potential The potential function, whose parameter is vector formed by the coordinates
+       *
+       * The user should make sure the dimension of the two part are identical.
+       */
+      OrthogonalMDOscillator(std::vector<Scalar>::size_type dimension, Scalar mass, std::function<Scalar(const std::vector<Scalar>&)> potential):
+        MDOscillator(dimension, mass, potential), equilibrium_(dimension, 0.)
+    {}
       /** @brief i'th one-dimension oscillator.
        */
       const Oscillator& OneDimension(std::vector<Oscillator>::size_type i);
