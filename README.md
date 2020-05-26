@@ -1,4 +1,4 @@
-**To get the code, go to release page on Github to get the stable version (v 1.3.0).**  
+**To get the code, go to release page on Github to get the stable version (v 2.0.0).**  
 
 # yDVR
 
@@ -8,11 +8,9 @@ A nuclear motion quantum mechanics solver library written in C++.
 
 This project is a set of toy codes written by [Yu Zhai](http://www.zhaiyusci.net/).
 
-The input is in xml format and no manual is available because it cannot be simpler.  Just follow the `dvr_2001.xml` as a sample.
-
 ## What are changed in version 2.x
 
-The whole project has been rewritten to make it object-oriented.
+### The whole project has been rewritten to make it object-oriented
 
 In the past, I wrote yDVR as a set of functions.  There are many reasons, but the core one is that computational chemists prefer Procedural programming (?).
 
@@ -28,11 +26,26 @@ Now in yDVR 2.0, you can use the following code
 
 ```cpp
 Oscillator co(m, pot);
-SincDVR sincdvr(&co,1.33,4.3,100 );
-PODVR podvr(&co, &sincdvr, 10);
+SincDVR sincdvr(co,1.33,4.3,100 );
+PODVR podvr(co, sincdvr, 10);
 ```
 
-The readability has been improved and if you notice, now PO-DVR calculation can based on DVRs other than sinc-DVR. (Yes!)  However, in version 2.0 there is only sinc-DVR, other representations can be add in the future.
+The readability has been improved and if you notice, now PODVR calculation can based on DVRs other than sinc-DVR because PODVR is now a decorator. (Yes!)  Although in version 2.0 there is only sinc-DVR available, other representations can be easily added in the future.
+
+### XML input file reader and spline interpolation are removed
+
+So you will not able to generate a list of potential point and then run yDVR directly.  By default, now yDVR is a shared library `libydvr.so`.  You have to write a piece of C++ code and call yDVR library to perform the calculation.
+
+Is that more difficult to use?  I think the readability of the input file (If we stick to the concept) is much improved thank to the expressibility of C++ language.  You can read the `src/podvr_test.cc` as an example.
+
+Some suggestions are given for those who are not familiar with modern C++ (Because users are more likely to be physical chemists rather than professional C++ programmers).
+
++ Potential function is used as argument of `Oscillator` class constructor.  It can be any *callable* objects, including functions, lambda expressions, and class with `operator()` overloaded.  I suggest you to use [lambda expression](https://en.cppreference.com/w/cpp/language/lambda) to convert the units in-line.  
++ Reference is what I like, and when design the interface, I avoid using pointers.  The good part of reference is that the user can release themselves from `*` `&` `->` `.` thing, and for most of time you can directly use stack variables instead of `new`-ing something from heap.  Therefore, you do not need to do the memory management.
+
+### Multi-dimension DVR is now available
+
+Now we have `OrthogonalMDDVR` class.  It can handle multi-dimension DVR problem.  
 
 ## Installation
 
@@ -53,21 +66,11 @@ $ pwd # The output should be used as EIGENROOT in Makefile, which contains `Eige
 ```
 5. Eigen is such a beautifully written library so `-O3` should be good for a good performance.
 
-## Running
-
-To run the code, simply `make` and then `./ydvr.x <input>`.  
-
-A sample input file is `src/dvr_2001.xml`.
-If not specified, all variables there are in atomic units.  
-Supported units are `angstrom`, `cm-1` and `dalton`.
-
-The mechanics inside are first run a sinc DVR calculation and then run a PODVR calculation based on the sinc DVR resulting basis kets.
+## Credits
 
 This project is experimental with no warranty.
 
-All code presented here except the xml parser is licensed under Mozilla Public License, Version 2.0.  
-
-Here I thank the [Eigen project](http://eigen.tuxfamily.org/index.php?title=Main_Page) and the [TinyXML-2 project](http://www.grinninglizard.com/tinyxml2/index.html).  I use their code to deal with the matrix and I/O.
+Here I thank the [Eigen project](http://eigen.tuxfamily.org/index.php?title=Main_Page). In 1.x version I used [TinyXML-2 project](http://www.grinninglizard.com/tinyxml2/index.html) to deal with I/O.
 
 Also thank [Prof. Hui Li](http://huiligroup.org/).  He makes me aware that this field is very interesting.
 
@@ -76,4 +79,5 @@ This is my first C++ project and I hope you guys forgive that these codes are no
 ## Known issues
 + Do not work well with PGI compiler `pgc++ 18.4-0 64-bit target on x86-64 Linux -tp haswell` because the project is based on Eigen.  
 As a computational chemist I prefer leave this problem to Eigen development team ;-)
++ The design of the class inheritance hierarchy is not perfect, some more refactoring should be done.  However, I want to pause here.
 
