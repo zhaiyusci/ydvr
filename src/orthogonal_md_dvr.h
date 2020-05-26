@@ -16,6 +16,11 @@
 
 class mdindex;
 namespace yDVR{
+  /** @brief Multi-dimension DVR where coordinates are orthogonal, like normal modes.
+   *
+   * Or, you can say that this class is a direct-product DVR.
+   * It can take any-dimension DVR as if your RAM is big enough (and time is adequate.).
+   */
   class OrthogonalMDDVR : public AbstractRepresentation{
     protected:
       OrthogonalMDOscillator* oscillator_;
@@ -26,18 +31,51 @@ namespace yDVR{
       Scalar PotentialCorrection(const mdindex& i);
       std::vector<Vector> grids_;
     public:
+      /** @brief Constructor.
+       *
+       * @param oscillator OrthogonalMDOscillator
+       */
       OrthogonalMDDVR(OrthogonalMDOscillator& oscillator)
         : oscillator_(&oscillator), representations_(oscillator.dimension(), nullptr),
         number_of_grids_(), grids_(oscillator.dimension(), Vector(0))
       {
       }
+      /** @brief 1D oscillator of the dimesnion i
+       *
+       * @param i i'th dimension
+       */
       const Oscillator& OscillatorOfDimension(std::vector<Oscillator>::size_type i);
+      /** @brief Set the 1D representation of the dimesnion i
+       *
+       * @param i i'th dimension
+       */
       void SetRepresentation(std::vector<DVR*>::size_type i, DVR& representation);
+      /** @brief Kinetic energy
+       *
+       * It is not written actually.  Bad design here. TODO: Refactor.
+       */
       virtual const Matrix& KineticMatrix(){return kinetic_matrix_;}
+      /** @brief Potential energy
+       *
+       * It is not written actually.  Bad design here. TODO: Refactor.
+       */
       virtual const Matrix& PotentialMatrix(){return potential_matrix_;}
+      /** @brief Hamiltonian matrix
+       *
+       * Calculate directly from containing 1D representations. 
+       * It will not call potential and kinetic energy.
+       */
       virtual const Matrix& HamiltonianMatrix();
+      /** @brief Coordinate matrix of dimesnion i
+       *
+       * @param i i'th dimension
+       */
       virtual const Matrix CoordinateMatrix(std::vector<Vector>::size_type i);
+      /** @brief Destructor.
+       */
       virtual ~OrthogonalMDDVR(){};
+      /** @brief Number of dimesnion
+       */
       size_t dimension(){ return oscillator_->dimension(); }
   };
 }
