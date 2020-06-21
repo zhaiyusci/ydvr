@@ -14,12 +14,12 @@
 #include"config.h"
 #include"stationary_state.h"
 #include"abstract_representation.h"
+#include"oscillator.h"
 
 /* @file
  */
 
 namespace yDVR{
-  class Oscillator;
   /** @brief Pure virtual class define the interface of a representation.
   */
   class Representation : public AbstractRepresentation{

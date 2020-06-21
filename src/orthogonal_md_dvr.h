@@ -26,9 +26,9 @@ namespace yDVR{
       OrthogonalMDOscillator* oscillator_;
       std::vector<DVR*> representations_;
       std::vector<int> number_of_grids_;
-      const std::vector<int> NumberOfGrids();
-      Scalar PrimitiveHamiltonianMatrixElement(const mdindex& i, const mdindex& j);
-      Scalar PotentialCorrection(const mdindex& i);
+      const std::vector<int> numberOfGrids();
+      Scalar primitiveHamiltonianMatrixElement(const mdindex& i, const mdindex& j);
+      Scalar potentialCorrection(const mdindex& i);
       std::vector<Vector> grids_;
     public:
       /** @brief Constructor.
@@ -44,33 +44,33 @@ namespace yDVR{
        *
        * @param i i'th dimension
        */
-      const Oscillator& OscillatorOfDimension(std::vector<Oscillator>::size_type i);
+      const Oscillator& oscillatorOfDimension(std::vector<Oscillator>::size_type i);
       /** @brief Set the 1D representation of the dimesnion i
        *
        * @param i i'th dimension
        */
-      void SetRepresentation(std::vector<DVR*>::size_type i, DVR& representation);
+      void setRepresentation(std::vector<DVR*>::size_type i, DVR& representation);
       /** @brief Kinetic energy
        *
        * It is not written actually.  Bad design here. TODO: Refactor.
        */
-      virtual const Matrix& KineticMatrix(){return kinetic_matrix_;}
+      virtual const Matrix& kineticMatrix(){return kinetic_matrix_;}
       /** @brief Potential energy
        *
        * It is not written actually.  Bad design here. TODO: Refactor.
        */
-      virtual const Matrix& PotentialMatrix(){return potential_matrix_;}
+      virtual const Matrix& potentialMatrix(){return potential_matrix_;}
       /** @brief Hamiltonian matrix
        *
        * Calculate directly from containing 1D representations. 
        * It will not call potential and kinetic energy.
        */
-      virtual const Matrix& HamiltonianMatrix();
+      virtual const Matrix& hamiltonianMatrix();
       /** @brief Coordinate matrix of dimesnion i
        *
        * @param i i'th dimension
        */
-      virtual const Matrix CoordinateMatrix(std::vector<Vector>::size_type i);
+      virtual const Matrix coordinateMatrix(std::vector<Vector>::size_type i);
       /** @brief Destructor.
        */
       virtual ~OrthogonalMDDVR(){};

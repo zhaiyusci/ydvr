@@ -9,15 +9,14 @@
 #ifndef YDVR_OSCILLATOR_H_
 #define YDVR_OSCILLATOR_H_
 #include"config.h"
+// #include"orthogonal_md_oscillator.h"
 
 namespace yDVR{
-  class Representation;
-
   /** @brief Simple one-dimension oscillator.
    */
   class Oscillator{
     protected:
-      const Scalar mass_;
+      Scalar mass_;
       std::function<Scalar(Scalar)> potential_;
     public:
       /** @brief Constructor.
@@ -25,16 +24,21 @@ namespace yDVR{
        * @param mass The mass of the oscillator.
        * @param potential The potential energy function of the oscillator.
        */
-      inline Oscillator(Scalar mass, const std::function<Scalar(Scalar)>& potential)
-        : mass_(mass), potential_(potential) { }
+      inline Oscillator(Scalar mass, std::function<Scalar(Scalar)> potential)
+        :   mass_(mass),
+            potential_(potential)
+        {
+        }
       /** @brief Get the mass 
-       */
+      */
       inline Scalar mass()const{ return mass_; }
       /** @brief Calculate the potential.
        *
        * @param q Coordinate at which the potential energy is calculated.
        */
-      inline Scalar Potential(Scalar q)const{ return potential_(q); }
+      inline Scalar potential(Scalar q)const{ 
+        return potential_(q); 
+      }
   };
 }
 #endif // YDVR_OSCILLATOR_H_

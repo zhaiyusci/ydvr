@@ -3,12 +3,12 @@
 #include"log.h"
 
 namespace yDVR{
-  const Vector& MDPODVR::Grids(std::vector<Vector>::size_type i){
-    if (grids_[i].size() == 0) ComputeGrids();
+  const Vector& MDPODVR::grids(std::vector<Vector>::size_type i){
+    if (grids_[i].size() == 0) computeGrids();
     return grids_[i];
   }
 
-  void MDPODVR::ComputeGrids(){
+  void MDPODVR::computeGrids(){
     Log::indent();
     LOG << "Calculate MD-PODVR grids..." << std::endl;
     std::vector<Matrix> coordinate_matrices;
@@ -16,13 +16,13 @@ namespace yDVR{
     LOG << "Construct coordinate matrices under primitive energy representation..." << std::endl;
     for( size_t ii =0; ii< primitive_->dimension(); ++ii){
       Matrix tmp(N_,N_);
-      Matrix pri_coord = primitive_->CoordinateMatrix(ii);
+      Matrix pri_coord = primitive_->coordinateMatrix(ii);
       for(int i=0; i<N_; ++i){
         for(int j=i; j<N_; ++j){
           tmp(i,j)=
-            Matrix(primitive_->EnergyState(i).bra()
+            Matrix(primitive_->energyState(i).adjoint()
                 *pri_coord
-                *primitive_->EnergyState(j).ket())(0,0);
+                *primitive_->energyState(j))(0,0);
           tmp(j,i)=tmp(i,j);
         }
       }
@@ -56,15 +56,15 @@ namespace yDVR{
     return;
   }
 
-  const Matrix& MDPODVR::HamiltonianMatrix(){
+  const Matrix& MDPODVR::hamiltonianMatrix(){
     // Get the hamiltonian without know its potential and kinetic energy
     if(hamiltonian_matrix_.cols() == 0){
       Log::indent();
       LOG << "Calculate MD-PODVR primitive hamiltonian direct from primitive energy levels..." << std::endl;
       hamiltonian_matrix_=Matrix::Zero(N_,N_);
-      ComputeGrids(); // make sure that primitive_to_po_ calculated
+      computeGrids(); // make sure that primitive_to_po_ calculated
       for(int i = 0; i<N_; ++i){
-        hamiltonian_matrix_(i,i) = primitive_->EnergyLevel(i);
+        hamiltonian_matrix_(i,i) = primitive_->energyLevel(i);
       }
       hamiltonian_matrix_ = 
         primitive_to_po_.adjoint()

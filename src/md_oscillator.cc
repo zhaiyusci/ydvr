@@ -12,14 +12,18 @@ namespace yDVR{
   MDOscillator::MDOscillator(
       const std::vector<Scalar>& mass, 
       std::function<Scalar(const std::vector<Scalar>&)> potential):
-    mass_(mass), potential_(potential)
+    dimension_(mass.size()),
+    mass_(mass),
+    potential_(potential)
   {
   }
 
   MDOscillator::MDOscillator(
-      std::vector<Scalar>::size_type dimension, Scalar mass,
+      int dimension, Scalar mass,
       std::function<Scalar(const std::vector<Scalar>&)> potential):
-    mass_(dimension, mass), potential_(potential)
+    dimension_(dimension),
+    mass_(dimension, mass),
+    potential_(potential)
   {
   }
 

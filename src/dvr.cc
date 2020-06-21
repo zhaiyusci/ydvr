@@ -10,19 +10,19 @@
 #include"dvr.h"
 #include"oscillator.h"
 namespace yDVR{
-  const Matrix& DVR::PotentialMatrix(){
-    Grids(); // grids must available before potential energy matrix element are done
+  const Matrix& DVR::potentialMatrix(){
+    grids(); // grids must available before potential energy matrix element are done
     if ( potential_matrix_.cols() == 0){
       int s = grids_.size();
       potential_matrix_=Matrix::Zero(s,s);
       for ( int i = 0; i < s; ++i){
-        potential_matrix_(i,i) = oscillator_->Potential(grids_(i));
+        potential_matrix_(i,i) = oscillator_->potential(grids_(i));
       }
     }
     return potential_matrix_;
   }
 
-  const Matrix DVR::CoordinateMatrix(){
-    return Grids().asDiagonal();
+  const Matrix DVR::coordinateMatrix(){
+    return grids().asDiagonal();
   }
 }

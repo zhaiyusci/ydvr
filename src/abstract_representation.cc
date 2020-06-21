@@ -11,39 +11,33 @@
 #include"stationary_state.h"
 #include<utility>
 namespace yDVR{
-  const Matrix& AbstractRepresentation::HamiltonianMatrix() {
+  const Matrix& AbstractRepresentation::hamiltonianMatrix() {
     if (hamiltonian_matrix_.cols() == 0){
-      hamiltonian_matrix_ = KineticMatrix() + PotentialMatrix();
+      hamiltonian_matrix_ = kineticMatrix() + potentialMatrix();
     }
     return hamiltonian_matrix_;
   }
-  const StationaryState& AbstractRepresentation::EnergyState(
-      std::vector<StationaryState>::size_type i){
-        if(stationary_states_.size() == 0){
-          ComputeEnergyLevels();
-        }
-        return stationary_states_[i];
+  Vector AbstractRepresentation::energyState(int i){
+    computeEnergyLevels();
+    return energy_states_.col(i);
   }
-  Scalar AbstractRepresentation::EnergyLevel(
-      std::vector<StationaryState>::size_type i){ 
-    if(stationary_states_.size() == 0){
-      ComputeEnergyLevels();
-    }
-    return stationary_states_[i].energy();
+  const Matrix& AbstractRepresentation::energyStates(){
+    computeEnergyLevels();
+    return energy_states_;
   }
-  void AbstractRepresentation::ComputeEnergyLevels(){
-    SelfAdjointEigenSolver tmp(HamiltonianMatrix());
-    Vector energy_levels = tmp.eigenvalues();
-    Matrix wave_functions = tmp.eigenvectors();
-    int s = energy_levels.size();
-    for(int i = 0; i < s; ++i){
-      stationary_states_
-        .push_back(
-            StationaryState(
-              energy_levels(i),
-              wave_functions.col(i),
-              this) 
-            );
+  Scalar AbstractRepresentation::energyLevel(int i){ 
+    computeEnergyLevels();
+    return energy_levels_[i];
+  }
+  const Vector& AbstractRepresentation::energyLevels(){ 
+    computeEnergyLevels();
+    return energy_levels_;
+  }
+  void AbstractRepresentation::computeEnergyLevels(){
+    if(energy_levels_.size() == 0){
+      SelfAdjointEigenSolver tmp(hamiltonianMatrix());
+      energy_levels_ = tmp.eigenvalues();
+      energy_states_ = tmp.eigenvectors();
     }
     return;
   }

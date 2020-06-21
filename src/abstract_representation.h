@@ -25,8 +25,9 @@ namespace yDVR{
       Matrix kinetic_matrix_;
       Matrix potential_matrix_;
       Matrix hamiltonian_matrix_;
-      void ComputeEnergyLevels();
-      std::vector<StationaryState> stationary_states_;
+      void computeEnergyLevels();
+      Vector energy_levels_;
+      Matrix energy_states_;
     public:
       /** @brief Constructor
       */
@@ -34,15 +35,25 @@ namespace yDVR{
         kinetic_matrix_(Matrix::Zero(0,0)),
         potential_matrix_(Matrix::Zero(0,0)),
         hamiltonian_matrix_(Matrix::Zero(0,0)){}
-      /** @brief Return the kinetic energy matrix. 
-      */
-      virtual const Matrix& KineticMatrix() = 0;
-      /** @brief Return the potential energy matrix. 
-      */
-      virtual const Matrix& PotentialMatrix() = 0;
-      /** @brief Return the hamiltonian matrix. 
-      */
-      virtual const Matrix& HamiltonianMatrix(); 
+      /** @brief Calculate and return the kinetic energy matrix. 
+       *
+       * In some cases, not directly used, only return a zero metrix.
+       */
+      virtual const Matrix& kineticMatrix() = 0;
+      /** @brief Calculate and return the potential energy matrix. 
+       *
+       * In some cases, not directly used, only return a zero metrix.
+       */
+      virtual const Matrix& potentialMatrix() = 0;
+      /** @brief Calculate and return the hamiltonian matrix. 
+       *
+       * Typically, hamiltonian matrix is calculate from the kinetic matrix (T)
+       * and potential matrix (V). However, in some cases, 
+       * the hamiltonian can be get directly without knowing the T and V.
+       * Thus, the user should call hamiltonianMatrix() directly unless you want to
+       * analysis something.
+       */
+      virtual const Matrix& hamiltonianMatrix(); 
       /** @brief Distructor.
       */
       virtual ~AbstractRepresentation(){}
@@ -50,12 +61,18 @@ namespace yDVR{
        *
        * @param i Quantum number of the vibrational
        */
-      Scalar EnergyLevel(std::vector<StationaryState>::size_type i);
+      Scalar energyLevel(int i);
+      /** @brief all energy levels.
+       */
+      const Vector& energyLevels();
       /** @brief i'th energy state.
        *
        * @param i Quantum number of the vibrational
        */
-      const StationaryState& EnergyState(std::vector<StationaryState>::size_type i);
+      Vector energyState(int i);
+      /** @brief All energy states.
+       */
+      const Matrix& energyStates();
   };
 }
 #endif //  YDVR_REPRESENTATION_H_

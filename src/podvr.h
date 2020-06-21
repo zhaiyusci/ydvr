@@ -25,27 +25,22 @@ namespace yDVR{
     public:
   /** @brief Constructor.
    *
-   * @param oscillator The coresponding oscillator.
    * @param primitive Pointer to the DVR which is the base of PODVR.  E.g., you can perform a sinc-DVR as the primitive calculation.
    * @param N Number of PODVR grids.
    */
-      PODVR(const Oscillator& oscillator, 
-          DVR& primitive,
+      PODVR( DVR& primitive,
           int N);
   /** @brief Kinetic energy matrix on PO-DVR.
    */
-      virtual const Matrix& KineticMatrix();
-  /** @brief Potential energy matrix on PO-DVR.
-   */
-      virtual const Matrix& PotentialMatrix();
+      virtual const Matrix& kineticMatrix() override;
   /** @brief Hamiltonian matrix on PO-DVR.
    *
    * Overwrite definition of representation.
    */
-      virtual const Matrix& HamiltonianMatrix();
+      virtual const Matrix& hamiltonianMatrix() override;
   /** @brief PODVR grids.
    */
-      virtual const Vector& Grids();
+      virtual const Vector& grids() override;
   };
 }
 

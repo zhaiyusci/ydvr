@@ -12,7 +12,7 @@
 #include<chrono>
 
 namespace yDVR{
-  const Vector& SincDVR::Grids(){
+  const Vector& SincDVR::grids(){
     if(grids_.size() == 0){
       Log::indent();
       LOG << "Calculate Sinc-DVR grids..." << std::endl;
@@ -32,7 +32,7 @@ namespace yDVR{
     return grids_;
   }
 
-  const Matrix& SincDVR::KineticMatrix(){
+  const Matrix& SincDVR::kineticMatrix(){
     if(kinetic_matrix_.cols() == 0){
       Log::indent();
       LOG << "Calculate Sinc-DVR kinetic matrix..." << std::endl;

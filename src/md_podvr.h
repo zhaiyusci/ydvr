@@ -18,7 +18,7 @@ namespace yDVR{
       int N_;
       std::vector<Vector> grids_;
       Matrix primitive_to_po_;
-      void ComputeGrids();
+      void computeGrids();
       Scalar eps_;
     public:
       /** @brief Constructor.
@@ -35,16 +35,16 @@ namespace yDVR{
        *
        * @param i i'th dimesnion.
        */
-      const Vector& Grids(std::vector<Vector>::size_type i);
+      const Vector& grids(std::vector<Vector>::size_type i);
       /** @brief Kinetic Energy matrix.
        */
-      virtual const Matrix& KineticMatrix(){return kinetic_matrix_;}
+      virtual const Matrix& kineticMatrix(){return kinetic_matrix_;}
       /** @brief Potential Energy matrix.
        */
-      virtual const Matrix& PotentialMatrix(){return potential_matrix_;}
+      virtual const Matrix& potentialMatrix(){return potential_matrix_;}
       /** @brief Hamiltonian matrix.
        */
-      virtual const Matrix& HamiltonianMatrix();
+      virtual const Matrix& hamiltonianMatrix();
       
   };
 

@@ -12,10 +12,8 @@
 #include"oscillator.h"
 
 namespace yDVR{
-  PODVR::PODVR(const Oscillator& oscillator, 
-      DVR& primitive,
-      int N):
-    DVR(oscillator), 
+  PODVR::PODVR(DVR& primitive, int N):
+    DVR(primitive.oscillator()), 
     N_(N),
     primitive_(&primitive)
   {
@@ -27,19 +25,19 @@ namespace yDVR{
     LOG << std::endl;
   }
 
-  const Vector& PODVR::Grids(){
+  const Vector& PODVR::grids(){
     if(grids_.size() == 0){
       Log::indent();
       LOG << "Calculate PO-DVR grids..." << std::endl;
       grids_=Vector::Zero(N_);
       Matrix coordinate_matrix(N_,N_);
-      Matrix pri_coord = primitive_->CoordinateMatrix();
+      Matrix pri_coord = primitive_->coordinateMatrix();
       for(int i=0; i<N_; ++i){
         for(int j=i; j<N_; ++j){
           coordinate_matrix(i,j)=
-            Matrix(primitive_->EnergyState(i).bra()
+            Matrix(primitive_->energyState(i).adjoint()
                 *pri_coord
-                *primitive_->EnergyState(j).ket())(0,0);
+                *primitive_->energyState(j))(0,0);
           coordinate_matrix(j,i)=coordinate_matrix(i,j);
         }
       }
@@ -65,74 +63,35 @@ namespace yDVR{
     return grids_;
   }
 
-  const Matrix& PODVR::KineticMatrix(){
+  const Matrix& PODVR::kineticMatrix(){
     if(kinetic_matrix_.cols() == 0){
       Log::indent();
       LOG << "Calculate PO-DVR kinetic energy..." << std::endl;
-      Log::indent();
-      LOG << "Calculate PO-DVR primitive hamiltonian..." << std::endl;
-      kinetic_matrix_=Matrix::Zero(N_,N_);
-      Grids(); // make sure that primitive_to_po_ calculated
-      for(int i = 0; i<N_; ++i){
-        kinetic_matrix_(i,i) = primitive_->EnergyLevel(i);
-      }
-      kinetic_matrix_ = 
-        primitive_to_po_.adjoint()
-        *kinetic_matrix_
-        *primitive_to_po_; 
+      kinetic_matrix_=hamiltonianMatrix() - potentialMatrix();
       LOG << "done." << std::endl;
-      LOG << "Remove the potential part..." << std::endl;
-      for(int i = 0; i<N_; ++i){
-        kinetic_matrix_(i,i) -= 
-          primitive_
-          ->oscillator()
-          .Potential(Grids()(i));
-      }
-      LOG << "done." << std::endl;
-      Log::unindent();
       Log::unindent();
     }
     return kinetic_matrix_;
   }
 
-  const Matrix& PODVR::PotentialMatrix(){
-    if(potential_matrix_.cols() == 0){
+  const Matrix& PODVR::hamiltonianMatrix(){
+    // Get the hamiltonian without know its potential and kinetic energy
+    if(hamiltonian_matrix_.cols() == 0){
       Log::indent();
-      LOG << "Calculate PO-DVR potential..." << std::endl;
-      potential_matrix_ = Matrix::Zero(N_,N_);
-      for(int i = 0; i < N_; ++i){
-        potential_matrix_(i,i) = 
-          this->oscillator_->Potential(Grids()(i));
+      LOG << "Calculate PO-DVR primitive hamiltonian direct from primitive energy levels..." << std::endl;
+      hamiltonian_matrix_=Matrix::Zero(N_,N_);
+      grids(); // make sure that primitive_to_po_ calculated
+      for(int i = 0; i<N_; ++i){
+        hamiltonian_matrix_(i,i) = primitive_->energyLevel(i);
       }
+      hamiltonian_matrix_ = 
+        primitive_to_po_.adjoint()
+        *hamiltonian_matrix_
+        *primitive_to_po_; 
       LOG << "done." << std::endl;
       Log::unindent();
     }
-    return potential_matrix_;
-  }
-
-  const Matrix& PODVR::HamiltonianMatrix(){
-
-    if(oscillator_ == &(primitive_->oscillator())){
-      // Get the hamiltonian without know its potential and kinetic energy
-      if(hamiltonian_matrix_.cols() == 0){
-        Log::indent();
-        LOG << "Calculate PO-DVR primitive hamiltonian direct from primitive energy levels..." << std::endl;
-        hamiltonian_matrix_=Matrix::Zero(N_,N_);
-        Grids(); // make sure that primitive_to_po_ calculated
-        for(int i = 0; i<N_; ++i){
-          hamiltonian_matrix_(i,i) = primitive_->EnergyLevel(i);
-        }
-        hamiltonian_matrix_ = 
-          primitive_to_po_.adjoint()
-          *hamiltonian_matrix_
-          *primitive_to_po_; 
-        LOG << "done." << std::endl;
-        Log::unindent();
-      }
-      return hamiltonian_matrix_;
-    }else{
-      return DVR::HamiltonianMatrix();
-    }
+    return hamiltonian_matrix_;
   }
 }
 

@@ -8,7 +8,7 @@
 
 CXX=g++
 EIGENROOT=/usr/include/eigen3
-CCFLAGS=-g -Ofast -Wall --std=c++11 -fPIC -I$(EIGENROOT) -DNDEBUG
+CCFLAGS=-g -Ofast -Wall -Wextra --std=c++11 -fPIC -I$(EIGENROOT) 
 LDFLAGS= # -lblas # -llapack
 
 # objects=sincdvr.o podvr.o mathtools.o iotools.o rotation.o tinyxml2/tinyxml2.o 

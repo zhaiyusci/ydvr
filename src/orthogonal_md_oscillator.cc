@@ -10,16 +10,16 @@
 #include<utility>
 
 namespace yDVR{
-  void OrthogonalMDOscillator::Split(){
+  void OrthogonalMDOscillator::split(){
     oscillators_.clear();
     for(std::vector<Scalar>::size_type i = 0; i < mass_.size(); ++i){
       oscillators_.push_back(
-          Oscillator(
+          new Oscillator(
             mass_[i],
-            [=](Scalar q){
+            [=](Scalar q) -> Scalar{
             std::vector<Scalar> c(this->equilibrium_);
             c[i] = q;
-            return this->potential_(c);
+            return this->potential(c);
             }
             )
           );
@@ -27,11 +27,11 @@ namespace yDVR{
     return;
   }
 
-  const Oscillator& OrthogonalMDOscillator::OneDimension(std::vector<Oscillator>::size_type i){
+  const Oscillator& OrthogonalMDOscillator::oneDimension(int i){
     if(oscillators_.size() == 0) {
-      Split();
+      split();
     }
-    return oscillators_[i];
+    return *oscillators_[i];
   }
 
 }

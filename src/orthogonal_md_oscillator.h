@@ -14,13 +14,14 @@
 #include<vector>
 #include"md_oscillator.h"
 
+
 namespace yDVR{
   /** @brief Multi-dimension oscillator.
    */
   class OrthogonalMDOscillator: public MDOscillator{
     protected:
-      void Split();
-      std::vector<Oscillator> oscillators_;
+      void split();
+      std::vector<Oscillator*> oscillators_;
       std::vector<Scalar> equilibrium_;
     public:
       /** @brief Constructor.
@@ -41,16 +42,20 @@ namespace yDVR{
        *
        * The user should make sure the dimension of the two part are identical.
        */
-      OrthogonalMDOscillator(std::vector<Scalar>::size_type dimension, Scalar mass, std::function<Scalar(const std::vector<Scalar>&)> potential):
+      OrthogonalMDOscillator(int dimension, Scalar mass, std::function<Scalar(const std::vector<Scalar>&)> potential):
         MDOscillator(dimension, mass, potential), equilibrium_(dimension, 0.)
     {}
       /** @brief i'th one-dimension oscillator.
        */
-      const Oscillator& OneDimension(std::vector<Oscillator>::size_type i);
+      const Oscillator& oneDimension(int i);
 
       /** @brief Virtual destructor.
        */
-      virtual ~OrthogonalMDOscillator(){};
+      virtual ~OrthogonalMDOscillator(){
+        for(auto && i : oscillators_){
+          delete i;
+        }
+      };
   };
 
 }

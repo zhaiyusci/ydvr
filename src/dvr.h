@@ -30,17 +30,17 @@ namespace yDVR{
        * Potential matrix on DVR is a diagonal matrix, 
        * whose diagonal elements are potential energy of DVR grids
        */
-      virtual const Matrix& PotentialMatrix();
+      virtual const Matrix& potentialMatrix() override;
       /** @brief Returns the DVR grids.
        */
-      virtual const Vector& Grids() = 0; 
+      virtual const Vector& grids() = 0; 
       /** @brief Returns the coordinate matrix.
        *
        * Just return the grids as diagonal matrix.
        * Implement of a `DiscreteVariableRepresentation` should implement 
        * `Grids()` instead of implement this function.
        */
-      virtual const Matrix CoordinateMatrix();
+      virtual const Matrix coordinateMatrix();
       /** @brief Distructor.
        */
       virtual ~DVR(){}

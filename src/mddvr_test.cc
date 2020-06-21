@@ -11,50 +11,42 @@
 using namespace std;
 using namespace yDVR;
 int main(){
+#define DIM 2
   Log::set("mddvr_test.out");
-  OrthogonalMDOscillator pib(2, 1., [](const std::vector<Scalar>& q ){return 0.5*(q[0]*q[0]+4.*q[1]*q[1]);});
-  SincDVR pd0(pib.OneDimension(0), -7., 7., 200);
-  SincDVR pd1(pib.OneDimension(1), -7., 7., 200);
-  {
-    PODVR d0(pib.OneDimension(0), pd0, 5);
-    PODVR d1(pib.OneDimension(1), pd1, 5);
-    ofstream out("mddvr5.list");
-    for(int i = 0; i!= 5; ++i){
-      for(int j = 0; j!= 5; ++j){
-        out << "    " << d0.Grids()[i] << "    " << d1.Grids()[j] << endl;
-      }
-    }
+  OrthogonalMDOscillator pib(DIM, 1., [](const std::vector<Scalar>& q ){Scalar res=0; for (size_t i =0; i!= DIM; ++i) res+=q[i]*q[i]; return 0.5*res;});
+  // OrthogonalMDOscillator pib(3, 1., [](const std::vector<Scalar>& q ){return 0.;});
+  std::vector<SincDVR*> pd;
+  std::vector<PODVR*> d;
+  for(size_t i =0; i!=DIM; ++i){
+    pd.push_back(new SincDVR(pib.oneDimension(i), -2*M_PI, 2*M_PI, 20));
+    cout << __LINE__ << "  " << pib.oneDimension(i).mass() << endl;
+    std::cout<< i << "  "<< pd[i]->energyLevel(0) << std::endl;
+    // d.push_back(new PODVR(*pd[i], 9));
   }
-  PODVR d0(pib.OneDimension(0), pd0, 20);
-  PODVR d1(pib.OneDimension(1), pd1, 20);
   OrthogonalMDDVR rep(pib);
-  rep.SetRepresentation(0, d0);
-  rep.SetRepresentation(1, d1);
-  for (int i=0; i!=120; ++i){
-    cout << i << "\t"<< rep.EnergyLevel(i) 
-      <<"\t"<< d0.EnergyLevel(i) 
-      <<"\t"<< d1.EnergyLevel(i) 
-      << endl;
-    // cout << podvr.EnergyState(i).bra() << endl;
+  for(size_t i =0; i!=DIM; ++i){
+    rep.setRepresentation(i, *pd[i]);
   }
 
 
-#define N_PO 25
-  MDPODVR porep(rep, N_PO);
-  for (int i=0; i!=5; ++i){
-    cout << i << "\t"<< porep.EnergyLevel(i) 
-      << endl;
-    // cout << podvr.EnergyState(i).bra() << endl;
-  }
+  ofstream out("podvr27.list");
+  for (int N_PO = 1; N_PO <= 50; ++N_PO){
+    MDPODVR porep(rep, N_PO, 1e-16);
+    // for (int i=0; i!=5; ++i){
+      // cout << i << "\t"<< porep.energyLevel(i) 
+        // << endl;
+      // cout << podvr.EnergyState(i).bra() << endl;
+    // }
 
-  {
-    ofstream out("podvr25.list");
     for(int i = 0; i!= N_PO; ++i){
-      out 
-        << porep.Grids(0)[i] << "\t"
-        << porep.Grids(1)[i] << "\t"
+      for(int j = 0; j!= DIM; ++j){
+        out 
+          << porep.grids(j)[i] << "\t";
+      }
+      out
         << endl;
     }
+    out << endl;
   }
   return 0;
 }

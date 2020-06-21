@@ -36,10 +36,10 @@ namespace yDVR{
       SincDVR(const Oscillator& oscillator, Scalar a, Scalar b, int N);
       /** @brief Kinetic energy matrix.
        */
-      virtual const Matrix& KineticMatrix();
+      virtual const Matrix& kineticMatrix() override;
       /** @brief Sinc DVR grids.
        */
-      virtual const Vector& Grids();
+      virtual const Vector& grids() override;
   };
 }
 
