@@ -13,3 +13,5 @@
 #include"orthogonal_md_oscillator.h"
 // #include"orthogonal_md_representation.h"
 #include"md_podvr.h"
+#include"oscillator_taylor.h"
+#include"harmonic.h"

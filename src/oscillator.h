@@ -36,9 +36,10 @@ namespace yDVR{
        *
        * @param q Coordinate at which the potential energy is calculated.
        */
-      inline Scalar potential(Scalar q)const{ 
+      inline virtual Scalar potential(Scalar q)const{ 
         return potential_(q); 
       }
+      virtual ~Oscillator(){}
   };
 }
 #endif // YDVR_OSCILLATOR_H_

@@ -15,6 +15,7 @@ LDFLAGS= # -lblas # -llapack
 objects=sincdvr.o dvr.o representation.o \
 				oscillator.o podvr.o log.o abstract_representation.o \
 				md_oscillator.o orthogonal_md_dvr.o orthogonal_md_oscillator.o \
+				harmonic.o oscillator_taylor.o \
 				md_podvr.o ../contrib/simultaneousDiagonalization/simultaneousDiagonalization.o 
 
 copes=co_pes_2016/ELJ.o 
@@ -25,6 +26,9 @@ libydvr.so: $(objects)
 
 podvr_test.exe: libydvr.so $(copes) podvr_test.cc
 	$(CXX) -o $@ $(CCFLAGS) podvr_test.cc $(copes) -L. -lydvr
+
+harmonic_test.exe: libydvr.so $(copes) harmonic_test.cc
+	$(CXX) -o $@ $(CCFLAGS) harmonic_test.cc $(copes) -L. -lydvr
 
 sincdvr_test.exe: $(objects) $(copes) sincdvr_test.cc
 	$(CXX) -o $@ $(CCFLAGS) sincdvr_test.cc $(objects) $(copes)
@@ -40,7 +44,7 @@ $(copes): %.o : %.cc %.h
 
 all: ydvr.x
 
-tests: sincdvr_test.exe podvr_test.exe mddvr_test.exe
+tests: sincdvr_test.exe podvr_test.exe mddvr_test.exe harmonic_test.exe
 
 .PHONY: clean all tests
 
