@@ -31,27 +31,22 @@ int main(){
   double f0=codvr.potential(re);
   double f1=codvr.potential(re+1*h);
   double f2=codvr.potential(re+2*h);
-  force_c.push_back(f0);
-  force_c.push_back(0.5/h*(f1-f_1));
-  force_c.push_back(1./h/h*(f1+f_1-2*f0));
-  force_c.push_back(0.5/h/h/h*(f2-2*f1-f_2+2*f_1));
-  force_c.push_back(1./h/h/h/h*(f2+f_2-4*f1-4*f_1+6*f0));
-  // OscillatorTaylor co(6.856208638000723*1822.888486209, 1.128322531930*1.8897261254578281,std::vector<Scalar>({ -5.85609722286001e-6, -0.00030408969010246, 1.2763754717476, -3.4325237870851, 3.5759687701914}));
+  force_c.push_back(f0);                                  // 0th
+  force_c.push_back(0.5/h*(f1-f_1));                      // 1st
+  force_c.push_back(1./h/h*(f1+f_1-2*f0));                // 2nd
+  force_c.push_back(0.5/h/h/h*(f2-2*f1-f_2+2*f_1));       // 3rd
+  force_c.push_back(1./h/h/h/h*(f2+f_2-4*f1-4*f_1+6*f0)); // 4th
   OscillatorTaylor co(6.856208638000723*1822.888486209, re, force_c);
-  // for (double i=-0.5; i<=0.5; i+=0.02){
-    // printf("%5.2f  %20.8f\n", i, co.potential(i));
-  // }
-  // return 0;
-  // OscillatorTaylor co(6.856208638000723*1822.888486209, std::vector<Scalar>({ 
-        // 0.,
-        // 0.,
-        // 1.2763754717476
-        // }));
+  // OscillatorTaylor co(1., 0, {0, 0, 1});
   HarmonicRepresentation hr(co,10 );
+  // SincDVR sincdvr(co,1.33, 4.33,100 );
   SincDVR sincdvr(codvr,1.33, 4.33,100 );
-    cout << "i       j       sincdvr          hr" << endl;
+    cout << "i     sincdvr          hr" << endl;
   for (int i=0; i!=5; ++i){
-    cout << i << "\t" << i-1 << "\t"<< (sincdvr.energyLevel(i))*219474.6313702 << "\t" << (hr.energyLevel(i))*219474.6313702 << endl;
+    // cout << i << "\t" << sincdvr.energyLevel(i) << "\t" << hr.energyLevel(i) << endl;
+    cout << i << "\t" << (sincdvr.energyLevel(i))*219474.6313702 << "\t" << hr.energyLevel(i)*219474.6313702 << endl;
   }
+  PODVR po(sincdvr,5);
+  cout << po.grids() << endl;
   return 0;
 }
