@@ -2,7 +2,7 @@
 
 # yDVR
 
-![yDVR logo](logo.svg)
+![yDVR logo](logo.png)
 
 A nuclear motion quantum mechanics solver library written in C++.
 
