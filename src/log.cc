@@ -39,4 +39,8 @@ namespace yDVR{
     for(int i=0; i< n_ind_; ++i) *p_stream_ << "|   " ;
     return *p_stream_;
   }
+  std::ostream& Log::getPlain(){
+    return *p_stream_;
+  }
+  
 }

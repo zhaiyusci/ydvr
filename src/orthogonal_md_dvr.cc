@@ -54,13 +54,16 @@ namespace yDVR{
     Scalar res = 0;
     std::vector<Scalar> q;
     // Primitive 
+    LOG << "Potential correction at grid " << i.get() << " (";
     for (std::vector<DVR*>::size_type ii = 0; ii < representations_.size(); ++ii){
       res += representations_[ii]->potentialMatrix()(i.get(ii),i.get(ii));
       q.push_back(representations_[ii]->grids()(i.get(ii)));
+      CONTINUE << "  " << representations_[ii]->grids()(i.get(ii)) ;
     }
     // true
     res -= oscillator_->potential(q);
     res *= -1;
+    CONTINUE << "):  " << res << std::endl ;
 
     return res;
   }

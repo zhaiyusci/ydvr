@@ -46,6 +46,9 @@ namespace yDVR{
   /** @brief Get the log stream
    */
       static std::ostream& get();
+  /** @brief Get the log stream, but without the time information
+   */
+      static std::ostream& getPlain();
   /** @brief Increase indent
    */
       inline static void indent(){ n_ind_++; }
@@ -55,5 +58,6 @@ namespace yDVR{
   };
 }
 #define LOG Log::get()
+#define CONTINUE Log::getPlain()
 
 #endif // YDVR_LOG_H_
