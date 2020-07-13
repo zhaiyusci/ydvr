@@ -35,7 +35,7 @@ namespace yDVR{
   std::ostream& Log::get(){
     auto&& t = std::chrono::system_clock::now();
     std::time_t t_c = std::chrono::system_clock::to_time_t(t);
-    *p_stream_ << "[" << std::put_time(std::localtime(&t_c), "%T") << "]" << " yDVR > ";
+    *p_stream_ << "[" << std::put_time(std::localtime(&t_c), "%T") << "]" << " yDVR " << yDVR_VERSION_MAJOR << "." << yDVR_VERSION_MINOR << " > ";
     for(int i=0; i< n_ind_; ++i) *p_stream_ << "|   " ;
     return *p_stream_;
   }

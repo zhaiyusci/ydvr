@@ -33,3 +33,5 @@
 *.x
 
 doc/html/
+
+src/build

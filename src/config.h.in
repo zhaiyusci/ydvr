@@ -9,8 +9,12 @@
 #ifndef YDVR_CONFIG_H_
 #define YDVR_CONFIG_H_
 
+#define yDVR_VERSION_MAJOR @yDVR_VERSION_MAJOR@
+#define yDVR_VERSION_MINOR @yDVR_VERSION_MINOR@
+
 #include<Eigen/Dense>
 #include<Eigen/Eigenvalues>
+#include<iostream>
 
 /** @brief All functions and class in %yDVR package.
  */
@@ -26,7 +30,7 @@ namespace yDVR{
   typedef Eigen::Matrix<Scalar, 1, Eigen::Dynamic> RowVector;
   typedef Eigen::SelfAdjointEigenSolver<Matrix> SelfAdjointEigenSolver;
 
+
 }
-#define LOG Log::get()
 
 #endif // YDVR_CONFIG_H_
