@@ -16,7 +16,7 @@ objects=sincdvr.o dvr.o representation.o \
 				oscillator.o podvr.o log.o abstract_representation.o \
 				md_oscillator.o orthogonal_md_dvr.o orthogonal_md_oscillator.o \
 				harmonic.o oscillator_taylor.o \
-				md_podvr.o ../contrib/simultaneousDiagonalization/simultaneousDiagonalization.o 
+				md_podvr.o simultaneous_diagonalization.o 
 
 copes=co_pes_2016/ELJ.o 
 

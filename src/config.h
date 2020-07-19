@@ -10,6 +10,7 @@
 #define YDVR_CONFIG_H_
 
 #include<Eigen/Dense>
+#include<Eigen/Sparse>
 #include<Eigen/Eigenvalues>
 
 /** @brief All functions and class in %yDVR package.
@@ -25,6 +26,10 @@ namespace yDVR{
   typedef ColVector Vector;
   typedef Eigen::Matrix<Scalar, 1, Eigen::Dynamic> RowVector;
   typedef Eigen::SelfAdjointEigenSolver<Matrix> SelfAdjointEigenSolver;
+  typedef Eigen::Matrix<Scalar, 2, 2> Matrix2d;
+  typedef Eigen::Matrix<Scalar, 2, 1> Vector2d;
+  typedef Eigen::SelfAdjointEigenSolver<Matrix2d> SelfAdjointEigenSolver2d;
+  typedef Eigen::SparseMatrix<Scalar> SparseMatrix;
 
 }
 #define LOG Log::get()

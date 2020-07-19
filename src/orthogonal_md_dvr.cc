@@ -9,7 +9,7 @@
 #include"oscillator.h"
 #include"orthogonal_md_dvr.h"
 #include"log.h"
-#include"../contrib/mdindex/mdindex.h"
+#include"mdindex.h"
 namespace yDVR{
   const Oscillator& OrthogonalMDDVR::oscillatorOfDimension(
       std::vector<Oscillator>::size_type i){

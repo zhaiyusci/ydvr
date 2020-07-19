@@ -1,5 +1,5 @@
 #include"md_podvr.h"
-#include"../contrib/simultaneousDiagonalization/simultaneousDiagonalization.h"
+#include"simultaneous_diagonalization.h"
 #include"log.h"
 
 namespace yDVR{
