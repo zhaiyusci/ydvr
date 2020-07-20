@@ -1,4 +1,4 @@
-**To get the code, go to release page on Github to get the stable version (v 2.0.0).**  
+**To get the code, go to release page on Github to get the stable version (v 2.1.0).**  
 
 # yDVR
 
