@@ -1,4 +1,4 @@
-// This file is part of ydvr.
+// This file is part of yDVR.
 //
 // Copyright (C) 2017-2020 Yu Zhai <me@zhaiyusci.net>
 //

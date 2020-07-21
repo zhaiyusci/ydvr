@@ -34,4 +34,5 @@ $(copes): %.o : %.cc %.h
 
 clean:
 	rm -f *.o *.exe *.out *.so
+	make -C tests
 
