@@ -34,4 +34,5 @@
 
 doc/html/
 
-src/build
+/build
+/install
