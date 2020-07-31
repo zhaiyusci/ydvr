@@ -1,4 +1,4 @@
-**To get the code, go to release page on Github to get the stable version (v 2.0.0).**  
+**To get the code, go to release page on Github to get the stable version (v 2.1.0).**  
 
 # yDVR
 
@@ -22,12 +22,12 @@ int sincPODVR1d(yScalar m, int N, int NPO, yScalar a, yScalar b, const DoubleFun
 
 Even myself is driven crazy when using it in my new projects.
 
-Now in yDVR 2.0, you can use the following code
+Now in yDVR 2.x, you can use the following code
 
 ```cpp
 Oscillator co(m, pot);
 SincDVR sincdvr(co,1.33,4.3,100 );
-PODVR podvr(co, sincdvr, 10);
+PODVR podvr(sincdvr, 10);
 ```
 
 The readability has been improved and if you notice, now PODVR calculation can based on DVRs other than sinc-DVR because PODVR is now a decorator. (Yes!)  Although in version 2.0 there is only sinc-DVR available, other representations can be easily added in the future.
