@@ -8,7 +8,7 @@
 
 #ifndef YDVR_MD_PODVR_H_
 #define YDVR_MD_PODVR_H_
-#include"orthogonal_md_dvr.h"
+#include"orthogonal_md_dvr.hh"
 
 namespace yDVR{
   /** @brief Simultaneous-Diagonalization DVR or Multi-Dimension PODVR.

@@ -10,8 +10,8 @@
 #define YDVR_DVR_H_
 
 #include<iostream>
-#include"config.h"
-#include"representation.h"
+#include"config.hh"
+#include"representation.hh"
 
 /* @file
  */

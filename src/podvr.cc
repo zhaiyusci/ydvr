@@ -6,10 +6,10 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#include"podvr.h"
-#include"stationary_state.h"
-#include"log.h"
-#include"oscillator.h"
+#include"podvr.hh"
+#include"stationary_state.hh"
+#include"log.hh"
+#include"oscillator.hh"
 
 namespace yDVR{
   PODVR::PODVR(DVR& primitive, int N):

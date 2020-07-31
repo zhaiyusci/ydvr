@@ -8,8 +8,8 @@
 
 #ifndef YDVR_OSCILLATOR_TAYLOR_H_
 #define YDVR_OSCILLATOR_TAYLOR_H_
-#include"config.h"
-#include"oscillator.h"
+#include"config.hh"
+#include"oscillator.hh"
 #include<vector>
 
 namespace yDVR{

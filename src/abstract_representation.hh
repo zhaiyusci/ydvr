@@ -11,8 +11,8 @@
 
 #include<iostream>
 #include<vector>
-#include"config.h"
-#include"stationary_state.h"
+#include"config.hh"
+#include"stationary_state.hh"
 
 /* @file
  */

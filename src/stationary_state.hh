@@ -9,7 +9,7 @@
 #ifndef YDVR_STATIONARY_STATE_H_
 #define YDVR_STATIONARY_STATE_H_
 
-#include"config.h"
+#include"config.hh"
 
 namespace yDVR{
   class AbstractRepresentation;

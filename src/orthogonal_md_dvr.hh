@@ -9,10 +9,10 @@
 #ifndef YDVR_ORTHOGONAL_MD_DVR_H_
 #define YDVR_ORTHOGONAL_MD_DVR_H_
 
-#include"config.h"
-#include"abstract_representation.h"
-#include"dvr.h"
-#include"orthogonal_md_oscillator.h"
+#include"config.hh"
+#include"abstract_representation.hh"
+#include"dvr.hh"
+#include"orthogonal_md_oscillator.hh"
 
 class mdindex;
 namespace yDVR{

@@ -8,7 +8,7 @@
 
 #ifndef YDVR_PODVR_H_
 #define YDVR_PODVR_H_
-#include"dvr.h"
+#include"dvr.hh"
 
 namespace yDVR{
   /** @brief Potential Optimized Discrete Variable Representation

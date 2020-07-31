@@ -14,7 +14,7 @@
 #include<chrono>
 #include<ctime>
 #include<iomanip>
-#include"config.h"
+#include"config.hh"
 
 /* @file
  */

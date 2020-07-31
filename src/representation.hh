@@ -11,10 +11,10 @@
 
 #include<iostream>
 #include<vector>
-#include"config.h"
-#include"stationary_state.h"
-#include"abstract_representation.h"
-#include"oscillator.h"
+#include"config.hh"
+#include"stationary_state.hh"
+#include"abstract_representation.hh"
+#include"oscillator.hh"
 
 /* @file
  */

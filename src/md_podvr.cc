@@ -6,9 +6,9 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#include"md_podvr.h"
-#include"simultaneous_diagonalization.h"
-#include"log.h"
+#include"md_podvr.hh"
+#include"simultaneous_diagonalization.hh"
+#include"log.hh"
 
 namespace yDVR{
   const Vector& MDPODVR::grids(std::vector<Vector>::size_type i){

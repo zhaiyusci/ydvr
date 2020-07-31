@@ -9,10 +9,10 @@
 #ifndef YDVR_MD_OSCILLATOR_H_
 #define YDVR_MD_OSCILLATOR_H_
 
-#include"config.h"
-// #include"oscillator.h"
+#include"config.hh"
+// #include"oscillator.hh"
 #include<vector>
-// #include"abstract_oscillator.h"
+// #include"abstract_oscillator.hh"
 
 namespace yDVR{
   /** @brief Multi-dimension oscillator.

@@ -6,10 +6,10 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#include"oscillator.h"
-#include"orthogonal_md_dvr.h"
-#include"log.h"
-#include"mdindex.h"
+#include"oscillator.hh"
+#include"orthogonal_md_dvr.hh"
+#include"log.hh"
+#include"mdindex.hh"
 namespace yDVR{
   const Oscillator& OrthogonalMDDVR::oscillatorOfDimension(
       std::vector<Oscillator>::size_type i){

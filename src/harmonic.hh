@@ -8,8 +8,8 @@
 
 #ifndef YDVR_HARMONIC_H_
 #define YDVR_HARMONIC_H_
-#include"representation.h"
-#include"oscillator_taylor.h"
+#include"representation.hh"
+#include"oscillator_taylor.hh"
 
 /* @file
  */

@@ -1,5 +1,5 @@
 #include<iostream>
-#include"rotation.h"
+#include"rotation.hh"
 
 using namespace Eigen;
 using namespace std;

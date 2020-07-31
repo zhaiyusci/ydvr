@@ -8,8 +8,8 @@
 
 #ifndef ROTATION_H
 #define ROTATION_H
-#include"mathtools.h"
-#include"iotools.h"
+#include"mathtools.hh"
+#include"iotools.hh"
 
 /* @file
  */

@@ -6,9 +6,9 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#include"sincdvr.h"
-#include"oscillator.h"
-#include"log.h"
+#include"sincdvr.hh"
+#include"oscillator.hh"
+#include"log.hh"
 #include<chrono>
 
 namespace yDVR{

@@ -8,8 +8,8 @@
 
 #ifndef YDVR_OSCILLATOR_H_
 #define YDVR_OSCILLATOR_H_
-#include"config.h"
-// #include"orthogonal_md_oscillator.h"
+#include"config.hh"
+// #include"orthogonal_md_oscillator.hh"
 
 namespace yDVR{
   /** @brief Simple one-dimension oscillator.

@@ -8,7 +8,7 @@
 
 #ifndef YDVR_SINCDVR_H_
 #define YDVR_SINCDVR_H_
-#include"dvr.h"
+#include"dvr.hh"
 
 /* @file
  */
