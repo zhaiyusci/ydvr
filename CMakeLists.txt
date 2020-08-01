@@ -26,7 +26,7 @@ if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME) AND BUILD_TESTING)
   add_subdirectory(test)
 endif()
 # target_include_directories(ydvr PUBLIC "${PROJECT_BINARY_DIR}")
-# add_subdirectory(sample)
+add_subdirectory(sample)
 
 # install(TARGETS ydvr DESTINATION lib)
 # install(FILES "${PROJECT_BINARY_DIR}/*.h" DESTINATION include)

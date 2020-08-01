@@ -25,4 +25,5 @@ namespace yDVR{
   const Matrix DVR::coordinateMatrix(){
     return grids().asDiagonal();
   }
+
 }

@@ -51,6 +51,7 @@ namespace yDVR{
       DVR(const Oscillator& oscillator):
         Representation(oscillator),
         grids_(0) {};
+
   };
 }
 #endif // YDVR_DVR_H_
