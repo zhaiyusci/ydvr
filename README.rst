@@ -7,8 +7,6 @@ yDVR
 .. figure:: logo.png
    :alt: yDVR logo
 
-   yDVR logo
-
 A nuclear motion quantum mechanics solver library written in C++.
 
 This project is a set of toy codes written by `Yu Zhai <http://www.zhaiyusci.net/>`__.
@@ -24,12 +22,14 @@ but the core one is that computational chemists prefer Procedural
 programming (?).
 
 The drawback of procedural programming is the interface can be very
-complex and impossible to remember, even hard to check. E.g., in yDVR
-1.3, the following function is used to perform a PODVR computation
+complex and impossible to remember, even hard to check. E.g., in yDVR 1.3,
+the following function is used to perform a PODVR computation
 
 .. code:: cpp
 
-   int sincPODVR1d(yScalar m, int N, int NPO, yScalar a, yScalar b, const DoubleFunction1d& potential, yVector& x, yVector& E, yMatrix& wf, yMatrix& H_PODVR);
+   int sincPODVR1d(yScalar m, int N, int NPO, yScalar a, yScalar b, 
+       const DoubleFunction1d& potential, yVector& x, yVector& E, 
+       yMatrix& wf, yMatrix& H_PODVR);
 
 Even myself is driven crazy when using it in my new projects.
 
@@ -85,28 +85,19 @@ problem.
 Installation
 ------------
 
-1. The code is simple enough so I did not design a GNU Autotools thing.
-   Instead, the Makefile is directly used.
-2. You will find some variables in the ``src/Makefile``, simply change
-   them: ``CXX``, ``EIGENROOT``, ``CCFLAGS``.
-3. The C++ compiler you use should support the C++11 standard. As I
-   know, ``g++`` from version 4.8 should work.
-4. The project is based on `Eigen
-   project <http://eigen.tuxfamily.org/index.php?title=Main_Page>`__,
-   ‘install’ Eigen before you compiler yDVR. You can install Eigen by
-   uncompress the tar.bz2 file in you home directory like this
+In this project cmake is used as the build system.
+For those who not familiar with cmake, the following instruction is made.
 
 .. code:: sh
 
-   $ pwd
-   /home/yuzhai
-   $ tar xf ~/Downloads/eigen-3.3.7.tar.bz2 # To uncompress the package you download from Eigen website
-   $ cd eigen-3.3.7/
-   $ pwd # The output should be used as EIGENROOT in Makefile, which contains `Eigen` directory
-   /home/yuzhai/eigen-3.3.7
+   cd /path/to/yDVR
+   mkdir build
+   cd build
+   ccmake .. # and chage the parameters as you wish
+   make 
+   make install
 
-5. Eigen is such a beautifully written library so ``-O3`` should be good
-   for a good performance.
+
 
 Credits
 -------
@@ -122,9 +113,6 @@ with I/O.
 Also thank `Prof. Hui Li <http://huiligroup.org/>`__. He makes me aware
 that this field is very interesting.
 
-This is my first C++ project and I hope you guys forgive that these
-codes are not robust enough.
-
 Known issues
 ------------
 
@@ -133,5 +121,3 @@ Known issues
    the project is based on Eigen.
    As a computational chemist I prefer leave this problem to Eigen
    development team ;-)
--  The design of the class inheritance hierarchy is not perfect, some
-   more refactoring should be done. However, I want to pause here.
