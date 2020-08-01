@@ -7,7 +7,7 @@
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #include"podvr.hh"
-#include"stationary_state.hh"
+// #include"stationary_state.hh"
 #include"log.hh"
 #include"oscillator.hh"
 

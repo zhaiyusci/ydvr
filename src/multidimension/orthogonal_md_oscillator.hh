@@ -9,8 +9,8 @@
 #ifndef YDVR_ORTHOGONAL_MD_OSCILLATOR_H_
 #define YDVR_ORTHOGONAL_MD_OSCILLATOR_H_
 
-#include"config.hh"
-#include"oscillator.hh"
+#include"../config.hh"
+#include"../oscillator.hh"
 #include<vector>
 #include"md_oscillator.hh"
 

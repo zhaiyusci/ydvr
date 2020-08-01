@@ -8,7 +8,7 @@
 
 #include"config.hh"
 #include"abstract_representation.hh"
-#include"stationary_state.hh"
+// #include"stationary_state.hh"
 #include<utility>
 namespace yDVR{
   const Matrix& AbstractRepresentation::hamiltonianMatrix() {

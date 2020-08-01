@@ -8,7 +8,7 @@
 
 #include"md_podvr.hh"
 #include"simultaneous_diagonalization.hh"
-#include"log.hh"
+#include"../log.hh"
 
 namespace yDVR{
   const Vector& MDPODVR::grids(std::vector<Vector>::size_type i){

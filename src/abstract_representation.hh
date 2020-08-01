@@ -12,7 +12,6 @@
 #include<iostream>
 #include<vector>
 #include"config.hh"
-#include"stationary_state.hh"
 
 /* @file
  */

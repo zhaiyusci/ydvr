@@ -17,7 +17,7 @@
 #include"representation.hh"
 // #include"rotation.hh"
 #include"sincdvr.hh"
-#include"stationary_state.hh"
+// #include"stationary_state.hh"
 #include"md_oscillator.hh"
 #include"orthogonal_md_dvr.hh"
 #include"orthogonal_md_oscillator.hh"

@@ -9,7 +9,7 @@
 #ifndef YDVR_MD_OSCILLATOR_H_
 #define YDVR_MD_OSCILLATOR_H_
 
-#include"config.hh"
+#include"../config.hh"
 // #include"oscillator.hh"
 #include<vector>
 // #include"abstract_oscillator.hh"

@@ -7,7 +7,7 @@
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #include"oscillator.hh"
-#include"stationary_state.hh"
+// #include"stationary_state.hh"
 #include"representation.hh"
 
 namespace yDVR {

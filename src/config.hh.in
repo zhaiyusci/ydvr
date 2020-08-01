@@ -12,6 +12,8 @@
 #define yDVR_VERSION_MAJOR @yDVR_VERSION_MAJOR@
 #define yDVR_VERSION_MINOR @yDVR_VERSION_MINOR@
 
+#define SCALAR @SCALAR@
+
 #include<Eigen/Dense>
 #include<Eigen/Sparse>
 #include<Eigen/Eigenvalues>
@@ -21,7 +23,7 @@
  */
 namespace yDVR{
   // Define precise used in yDVR
-  typedef double Scalar; // ... can change here
+  typedef SCALAR Scalar; // ... can change here
 
   /* @brief Define Linear Algebra classes, user may want different linear algebra library
    */

@@ -8,7 +8,7 @@
 
 #ifndef YDVR_SIMULTANEOUS_DIAGONALIZATION_H_
 #define YDVR_SIMULTANEOUS_DIAGONALIZATION_H_
-#include"config.hh"
+#include"../config.hh"
 #include<initializer_list>
 #include<vector>
 namespace yDVR{

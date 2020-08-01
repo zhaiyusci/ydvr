@@ -12,7 +12,7 @@
 #include<iostream>
 #include<vector>
 #include"config.hh"
-#include"stationary_state.hh"
+// #include"stationary_state.hh"
 #include"abstract_representation.hh"
 #include"oscillator.hh"
 
