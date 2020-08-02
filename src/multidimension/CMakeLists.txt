@@ -1,6 +1,7 @@
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 aux_source_directory(. DIR_MULTIDIMENSION_SRC)
-add_library(multidimension ${DIR_MULTIDIMENSION_SRC})
+add_library(multidimension OBJECT ${DIR_MULTIDIMENSION_SRC})
+set_property(TARGET multidimension PROPERTY POSITION_INDEPENDENT_CODE ON)
 # add_executable(podvr_test.exe podvr_test.cc)
 # configure_file(config.hh.in config.hh)
 target_include_directories(multidimension PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
@@ -8,7 +9,7 @@ target_include_directories(multidimension PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..
 target_link_libraries(multidimension Eigen3::Eigen)
 
 # target_link_libraries(podvr_test.exe Eigen3::Eigen)
-# install(TARGETS ydvr_multidimension DESTINATION lib)
+# install(TARGETS multidimension DESTINATION lib)
 # install(FILES .h DESTINATION include)
 
 install(FILES md_oscillator.hh DESTINATION include/multidimension)
