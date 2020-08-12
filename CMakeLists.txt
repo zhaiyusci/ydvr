@@ -6,6 +6,8 @@ project(yDVR
   LANGUAGES CXX
   )
 
+add_compile_options(-Wall -Wextra -pedantic -Werror)
+
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   set(CMAKE_CXX_STANDARD 11)
