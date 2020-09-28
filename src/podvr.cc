@@ -30,17 +30,14 @@ namespace yDVR{
       Log::indent();
       LOG << "Calculate PO-DVR grids..." << std::endl;
       grids_=Vector::Zero(N_);
-      Matrix coordinate_matrix(N_,N_);
+      Matrix coordinate_matrix; // (N_,N_);
       Matrix pri_coord = primitive_->coordinateMatrix();
-      for(int i=0; i<N_; ++i){
-        for(int j=i; j<N_; ++j){
-          coordinate_matrix(i,j)=
-            Matrix(primitive_->energyState(i).adjoint()
-                *pri_coord
-                *primitive_->energyState(j))(0,0);
-          coordinate_matrix(j,i)=coordinate_matrix(i,j);
-        }
-      }
+
+      // Using the lowest N_ states to construct the coordinate matrix of PODVR
+      coordinate_matrix = primitive_->energyStates().leftCols(N_).adjoint()
+        * pri_coord
+        * primitive_->energyStates().leftCols(N_);
+
       SelfAdjointEigenSolver tmp(coordinate_matrix);
       grids_=tmp.eigenvalues();
       LOG << "done." << std::endl;
